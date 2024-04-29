@@ -1,5 +1,5 @@
-#if !defined INCLUDED__ESP_32_SD_Test__SD_CARD_HPP
-#define INCLUDED__ESP_32_SD_Test__SD_CARD_HPP
+#if !defined INCLUDED__ESP32_SMART_BEENS_V0__SD_CARD_HPP
+#define INCLUDED__ESP32_SMART_BEENS_V0__SD_CARD_HPP
 
 
 #include <stdio.h>
@@ -20,4 +20,4 @@ int sd_card_append_to_log_file(uint32_t file_idx, const char* str);
 int sd_card_read_from_file(const char* path); 
 
 
-#endif /* INCLUDED__ESP_32_SD_Test__SD_CARD_HPP */ 
+#endif /* INCLUDED__ESP32_SMART_BEENS_V0__SD_CARD_HPP */ 

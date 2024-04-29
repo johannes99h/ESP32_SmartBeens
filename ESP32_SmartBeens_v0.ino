@@ -1,4 +1,5 @@
 #include "sd_card.hpp"
+#include "mhz19c.hpp"
 #include <stdio.h>
 
 
@@ -11,12 +12,13 @@ hw_timer_t * timer = NULL;
 
 uint32_t current_file_idx = 0;
 
-s
 void setup() {
     pinMode(ONBOARD_LED, OUTPUT);
     
     Serial.begin(9600);
     while (!Serial) { ; }
+
+    mhz19_init();
 
     sd_card_init();
     current_file_idx = sd_card_create_new_file();
@@ -69,7 +71,13 @@ int runtime_routine( void )
   // reset flag
   CALL_RUNTIME_ROUTINE = false;
 
-  sd_card_append_to_log_file(current_file_idx, "again!");
+  int time_since_por = millis() / 1000;
+  int co2_ppm = mhz19_get_co2_reading_analog();
+
+  char data[24]; 
+  sprintf(data, "%d,%d", time_since_por, co2_ppm);
+  
+  sd_card_append_to_log_file(current_file_idx, data);
 
   // heartbeat LED
   blink_onboard_led(1);
