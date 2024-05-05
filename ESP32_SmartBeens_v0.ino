@@ -1,5 +1,6 @@
 #include "sd_card.hpp"
 #include "mhz19c.hpp"
+#include "am2320.hpp"
 #include <stdio.h>
 
 
@@ -19,6 +20,8 @@ void setup() {
     while (!Serial) { ; }
 
     mhz19_init();
+
+    am2320_init();
 
     sd_card_init();
     current_file_idx = sd_card_create_new_file();
@@ -72,10 +75,12 @@ int runtime_routine( void )
   CALL_RUNTIME_ROUTINE = false;
 
   int time_since_por = millis() / 1000;
+  float temperature = am2320_get_temperature();
+  float humidity = am2320_get_humidity();
   int co2_ppm = mhz19_get_co2_reading_analog();
 
-  char data[24]; 
-  sprintf(data, "%d,%d", time_since_por, co2_ppm);
+  char data[48]; 
+  sprintf(data, "%d,%f,%f,%d", time_since_por, temperature, humidity, co2_ppm);
   
   sd_card_append_to_log_file(current_file_idx, data);
 
