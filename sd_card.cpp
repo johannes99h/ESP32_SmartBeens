@@ -10,12 +10,14 @@ const int CS = 5;
 int sd_card_init( void )
 {
   Serial.println("Initializing SD card...");
+
   if(!SD.begin(CS))
   { 
     Serial.println("Initialization failed!");
     return -1;
   }
-  Serial.println("Initialization done.");
+  
+  Serial.println("SD card initialized.");
 
   for(int i = 0; i < 3; i++) {
     digitalWrite(2, HIGH);
@@ -76,10 +78,11 @@ int sd_card_append_to_file(const char* path, const char* str)
     return -1;
   }
 
-  Serial.printf("Writing to %s... ", path);
+  Serial.printf("Writing to %s... \n\r", path);
   myFile.println(str);
+  
   myFile.close();
-  Serial.println("Writing completed.");
+  Serial.printf("Writing to %s completed.\n\r", path);
 
   return 0;
 }
@@ -96,10 +99,11 @@ int sd_card_append_to_log_file(uint32_t file_idx, const char* str)
     return -1;
   }
 
-  Serial.printf("Writing to %s... ", path);
+  Serial.printf("Appending to %s... \n\r", path);
   myFile.println(str);
+
   myFile.close();
-  Serial.println("Writing completed.");
+  Serial.printf("Appending to %s completed.\n\r", path);
 
   return 0;
 }
@@ -114,7 +118,7 @@ int sd_card_read_from_file(const char* path)
     return -1;
   }
 
-  Serial.printf("Reading file from %s \n", path);
+  Serial.printf("Reading file from %s \n\r", path);
   
   // read entire file
   while(myFile.available()) 

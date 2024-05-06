@@ -3,9 +3,10 @@
 #include <SoftwareSerial.h>
 
 
-#define MH_Z19_RX 3  // D7
-#define MH_Z19_TX 2  // D6
-#define CO2_IN 13 // Arduino pin for pwm reading
+#define MH_Z19_RX 3       // D7
+#define MH_Z19_TX 2       // D6
+#define CO2_IN 13         // Arduino pin for pwm reading
+#define SIZE_MEAN_VAL 1
 
 
 MHZ co2(MH_Z19_RX, MH_Z19_TX, CO2_IN, MHZ19C);
@@ -13,17 +14,16 @@ MHZ co2(MH_Z19_RX, MH_Z19_TX, CO2_IN, MHZ19C);
 
 int mhz19_init( void ) 
 {
-    /* commented out for deep sleep testing, has to be added again afterwards!
+    /* commented out for deep sleep testing, has to be added again afterwards! */
     if (co2.isPreHeating()) {
-      Serial.println("CO2 sensor is preheating.");
+      Serial.print("CO2 sensor is preheating");
       while (co2.isPreHeating()) {
         Serial.print(".");
         delay(5000);
       }
 
-      Serial.println("MHZ19 initialized.");
+      Serial.printf("\n\rMHZ19 initialized.\n\r");
     }
-    */ 
 
     return 0;
 }
@@ -31,7 +31,9 @@ int mhz19_init( void )
 
 int mhz19_get_co2_reading_analog( void )
 {
-    int ppm_pwm = co2.readCO2PWM();
+    unsigned int ppm_pwm = co2.readCO2PWM();
+
     Serial.printf("CO2 concentration: %d PPM\n\r", ppm_pwm);
+
     return ppm_pwm;
 }
