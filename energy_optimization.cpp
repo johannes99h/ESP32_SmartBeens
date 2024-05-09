@@ -11,7 +11,7 @@ int wake_up_from_deep_sleep()
     }
 
     // heartbeat LED
-    // blink_onboard_led(1);
+    blink_onboard_led(1);
 
     // activate serial console
     Serial.begin(9600);
@@ -60,7 +60,7 @@ int prepare_deep_sleep()
     Serial.flush(); 
 
     // heartbeat LED
-    // blink_onboard_led(3);
+    blink_onboard_led(3);
 
     // update "alive counter" with time passed since wake-up
     time_since_start += millis() / 1000;

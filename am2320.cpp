@@ -5,7 +5,7 @@
 Adafruit_AM2320 am2320 = Adafruit_AM2320();
 
 
-int am2320_init( void )
+int am2320_i2c_init( void )
 {
     am2320.begin();
     
@@ -15,7 +15,7 @@ int am2320_init( void )
 }
 
 
-float am2320_get_temperature( void )
+float am2320_i2c_get_temperature( void )
 {
     float temperature = am2320.readTemperature();
 
@@ -25,7 +25,7 @@ float am2320_get_temperature( void )
 }
 
 
-float am2320_get_humidity( void )
+float am2320_i2c_get_humidity( void )
 {
     float humidity = am2320.readHumidity();
 

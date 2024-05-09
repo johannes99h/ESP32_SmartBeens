@@ -3,7 +3,7 @@
 
 
 #define uS_TO_S_FACTOR 1000000  // conversion factor from micro seconds to seconds
-#define TIME_TO_SLEEP  180      // sleeping time in seconds
+#define TIME_TO_SLEEP  15       // sleeping time in seconds
 #define ONBOARD_LED 2           // pin D2
 
 

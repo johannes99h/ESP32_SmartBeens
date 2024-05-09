@@ -51,7 +51,7 @@ uint32_t sd_card_create_new_file( void )
   myFile = SD.open(path, FILE_WRITE);
 
   // print data information as first lines
-  myFile.println("Time since POR | Temperature | Humidity | CO2-Concentration");
+  myFile.println("Time since POR | T1 | RH1 | T2 | RH2 | T3 | RH3 | CO2");
   myFile.println("-----------------------------------------------------------");
 
   // close filestream

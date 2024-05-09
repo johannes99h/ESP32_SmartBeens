@@ -15,6 +15,7 @@ MHZ co2(MH_Z19_RX, MH_Z19_TX, CO2_IN, MHZ19C);
 int mhz19_init( void ) 
 {
     /* commented out for deep sleep testing, has to be added again afterwards! */
+    /*
     if (co2.isPreHeating()) {
       Serial.print("CO2 sensor is preheating");
       while (co2.isPreHeating()) {
@@ -24,6 +25,7 @@ int mhz19_init( void )
 
       Serial.printf("\n\rMHZ19 initialized.\n\r");
     }
+    */
 
     return 0;
 }
