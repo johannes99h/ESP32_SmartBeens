@@ -43,23 +43,15 @@ void loop() { ;;; }
 
 int runtime_routine( void )
 {
-  // float temperature = am2320_i2c_get_temperature();
-  // float humidity = am2320_i2c_get_humidity();
+  // TODO: move to function & save error codes (summation?) & offsets on SD card as well
   int status = am2320_get_sensor_vals(); 
   int co2_ppm = mhz19_get_co2_reading_analog();
 
-  // char data[48]; // size could probably be reduced!
-  // sprintf(data, "%d,%.1f,%.1f,%d", time_since_start, temperature, humidity, co2_ppm);
-  
-  // TODO: move to function
-  char data[64]; // size could probably be reduced!
-  sprintf(data, "%d,%d,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f", time_since_start, co2_ppm, 
-                                                       am2320_1_data.temperature, am2320_1_data.humidity, 
-                                                       am2320_2_data.temperature, am2320_2_data.humidity,
-                                                       am2320_3_data.temperature, am2320_3_data.humidity);
-  
-
+  char data[128]; // size could probably be reduced!
+  sprintf(data, "%d, %.1f, %.1f, %.1f, %.1f, %.1f, %.1f, %d", time_since_start, am2320_1_data.temperature, am2320_1_data.humidity,
+          am2320_2_data.temperature, am2320_2_data.humidity, am2320_3_data.temperature, am2320_3_data.humidity, co2_ppm);
   sd_card_append_to_log_file(current_file_idx, data);
 
   return 0;
 }
+

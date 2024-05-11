@@ -100,6 +100,7 @@ int sd_card_append_to_log_file(uint32_t file_idx, const char* str)
   }
 
   Serial.printf("Appending to %s... \n\r", path);
+  // myFile.print(str);
   myFile.println(str);
 
   myFile.close();
@@ -128,3 +129,4 @@ int sd_card_read_from_file(const char* path)
 
   return 0;
 }
+

@@ -17,6 +17,7 @@ struct data am2320_3_data;
 int am2320_init( void )
 {
     am2320_1.setType(22);
+    am2320_1.setHumOffset(6.3);     // only for sensor 1 on breadboard necessary!
     am2320_2.setType(22);
     am2320_3.setType(22);
 
@@ -30,6 +31,8 @@ int am2320_init( void )
 int am2320_get_sensor_vals( void )
 {
     Serial.println("Reading AM2320 sensors...");
+
+    delay(100);
 
     // check status of first sensor
     am2320_1_data.debug_val = am2320_1.read();
@@ -47,6 +50,8 @@ int am2320_get_sensor_vals( void )
         Serial.printf("Error %d while reading AM2320 no.1.\n\r", am2320_1_data.debug_val);
     }
 
+    delay(100);
+
     // check status of second sensor
     am2320_2_data.debug_val = am2320_2.read();
 
@@ -63,6 +68,8 @@ int am2320_get_sensor_vals( void )
         Serial.printf("Error %d while reading AM2320 no.2.\n\r", am2320_2_data.debug_val);
     }
 
+    delay(100);
+
     // check status of third sensor
     am2320_3_data.debug_val = am2320_3.read();
 
@@ -78,6 +85,8 @@ int am2320_get_sensor_vals( void )
     } else {
         Serial.printf("Error %d while reading AM2320 no.3.\n\r", am2320_3_data.debug_val);
     }
+
+    delay(100);
 
     Serial.println("Finished reading AM2320 sensors.");
 
