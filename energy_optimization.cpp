@@ -1,6 +1,8 @@
 #include "energy_optimization.hpp"
 #include "esp_sleep.h"
 #include <SoftwareSerial.h>
+#include "am2320_onewire.hpp"
+#include "sd_card.hpp"
 
 
 int wake_up_from_deep_sleep() 
@@ -11,11 +13,11 @@ int wake_up_from_deep_sleep()
     }
 
     // heartbeat LED
-    blink_onboard_led(1);
+    // blink_onboard_led(1);
 
     // activate serial console
     Serial.begin(9600);
-    delay(1000);          // waiting for serial console
+    delay(1000);
     Serial.println("");
     Serial.println("---------------------");
     
@@ -54,13 +56,16 @@ int print_wakeup_reason()
 int prepare_deep_sleep()
 {
     esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
+
+    am2320_deinit();
+    sd_card_deinit();
+
+    // heartbeat LED
+    // blink_onboard_led(3);
     Serial.println("Going to sleep now, will wake in " + String(TIME_TO_SLEEP) + " seconds.");
     Serial.println("---------------------");
     delay(1000);
     Serial.flush(); 
-
-    // heartbeat LED
-    blink_onboard_led(3);
 
     // update "alive counter" with time passed since wake-up
     time_since_start += millis() / 1000;

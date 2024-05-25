@@ -93,3 +93,26 @@ int am2320_get_sensor_vals( void )
     return 0; 
 }
 
+
+// energy optimization
+int am2320_deinit( void )
+{
+    /* Kernel panics
+    am2320_1.powerDown();
+    am2320_2.powerDown();
+    am2320_3.powerDown();
+    */
+
+    /* results in ~70mA Deep Sleep Current
+    analogRead(25);
+    analogRead(26);
+    analogRead(27);
+    */
+
+    /* not tested yet 
+    digitalWrite(25, LOW);
+    digitalWrite(26, LOW);
+    digitalWrite(27, LOW);
+    */
+}
+

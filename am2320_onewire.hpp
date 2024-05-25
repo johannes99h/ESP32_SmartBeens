@@ -23,6 +23,7 @@ struct data {
 
 int am2320_init( void );
 int am2320_get_sensor_vals( void );
+int am2320_deinit( void );
 
 
 #endif /* INCLUDED__ESP32_SMART_BEENS_V0__AM2320_ONEWIRE_HPP */

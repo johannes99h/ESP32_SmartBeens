@@ -14,16 +14,17 @@ MHZ co2(MH_Z19_RX, MH_Z19_TX, CO2_IN, MHZ19C);
 
 int mhz19_init( void ) 
 {
-    /* commented out for deep sleep testing, has to be added again afterwards! */
+    // TODO: library doesn't check preheating status when using pwm...
+    /*     */ 
     if (co2.isPreHeating()) {
       Serial.print("CO2 sensor is preheating");
       while (co2.isPreHeating()) {
         Serial.print(".");
         delay(5000);
       }
-
-      Serial.printf("\n\rMHZ19 initialized.\n\r");
     }
+
+    Serial.printf("\n\rMHZ19 initialized.\n\r");
 
     return 0;
 }
@@ -34,6 +35,13 @@ int mhz19_get_co2_reading_analog( void )
     unsigned int ppm_pwm = co2.readCO2PWM();
 
     Serial.printf("CO2 concentration: %d PPM\n\r", ppm_pwm);
+
+    // energy optimization
+    /* causes exceptions & high current?
+    analogRead(CO2_IN);
+    analogRead(MH_Z19_TX);
+    analogRead(MH_Z19_RX);
+    */
 
     return ppm_pwm;
 }
