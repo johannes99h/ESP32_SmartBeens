@@ -1,0 +1,182 @@
+[
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "C:\\Users\\johan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.11\\cores\\esp32"
+  },
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "C:\\Users\\johan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.11\\variants\\esp32"
+  },
+  {
+    "Sourcefile": "C:\\Github\\ESP32_SmartBeens_v0\\build\\sketch\\ESP32_SmartBeens_v0.ino.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Github\\ESP32_SmartBeens_v0\\build\\sketch\\am2320.cpp",
+    "Include": "Adafruit_AM2320.h",
+    "Includepath": "C:\\Users\\johan\\OneDrive\\Documents\\Arduino\\libraries\\Adafruit_AM2320_sensor_library"
+  },
+  {
+    "Sourcefile": "C:\\Github\\ESP32_SmartBeens_v0\\build\\sketch\\am2320.cpp",
+    "Include": "Adafruit_I2CDevice.h",
+    "Includepath": "C:\\Users\\johan\\OneDrive\\Documents\\Arduino\\libraries\\Adafruit_BusIO"
+  },
+  {
+    "Sourcefile": "C:\\Github\\ESP32_SmartBeens_v0\\build\\sketch\\am2320.cpp",
+    "Include": "Wire.h",
+    "Includepath": "C:\\Users\\johan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.11\\libraries\\Wire\\src"
+  },
+  {
+    "Sourcefile": "C:\\Github\\ESP32_SmartBeens_v0\\build\\sketch\\am2320.cpp",
+    "Include": "Adafruit_Sensor.h",
+    "Includepath": "C:\\Users\\johan\\OneDrive\\Documents\\Arduino\\libraries\\Adafruit_Unified_Sensor"
+  },
+  {
+    "Sourcefile": "C:\\Github\\ESP32_SmartBeens_v0\\build\\sketch\\am2320.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Github\\ESP32_SmartBeens_v0\\build\\sketch\\am2320_onewire.cpp",
+    "Include": "dhtnew.h",
+    "Includepath": "C:\\Users\\johan\\OneDrive\\Documents\\Arduino\\libraries\\DHTNEW"
+  },
+  {
+    "Sourcefile": "C:\\Github\\ESP32_SmartBeens_v0\\build\\sketch\\am2320_onewire.cpp",
+    "Include": "SoftwareSerial.h",
+    "Includepath": "C:\\Users\\johan\\OneDrive\\Documents\\Arduino\\libraries\\SoftwareSerial\\src"
+  },
+  {
+    "Sourcefile": "C:\\Github\\ESP32_SmartBeens_v0\\build\\sketch\\am2320_onewire.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Github\\ESP32_SmartBeens_v0\\build\\sketch\\energy_optimization.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Github\\ESP32_SmartBeens_v0\\build\\sketch\\hx711.cpp",
+    "Include": "HX711.h",
+    "Includepath": "C:\\Users\\johan\\OneDrive\\Documents\\Arduino\\libraries\\HX711"
+  },
+  {
+    "Sourcefile": "C:\\Github\\ESP32_SmartBeens_v0\\build\\sketch\\hx711.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Github\\ESP32_SmartBeens_v0\\build\\sketch\\mhz19c.cpp",
+    "Include": "MHZ.h",
+    "Includepath": "C:\\Users\\johan\\OneDrive\\Documents\\Arduino\\libraries\\MH-Z_CO2_Sensors"
+  },
+  {
+    "Sourcefile": "C:\\Github\\ESP32_SmartBeens_v0\\build\\sketch\\mhz19c.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Github\\ESP32_SmartBeens_v0\\build\\sketch\\sd_card.cpp",
+    "Include": "SPI.h",
+    "Includepath": "C:\\Users\\johan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.11\\libraries\\SPI\\src"
+  },
+  {
+    "Sourcefile": "C:\\Github\\ESP32_SmartBeens_v0\\build\\sketch\\sd_card.cpp",
+    "Include": "SD.h",
+    "Includepath": "C:\\Users\\johan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.11\\libraries\\SD\\src"
+  },
+  {
+    "Sourcefile": "C:\\Github\\ESP32_SmartBeens_v0\\build\\sketch\\sd_card.cpp",
+    "Include": "FS.h",
+    "Includepath": "C:\\Users\\johan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.11\\libraries\\FS\\src"
+  },
+  {
+    "Sourcefile": "C:\\Github\\ESP32_SmartBeens_v0\\build\\sketch\\sd_card.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\johan\\OneDrive\\Documents\\Arduino\\libraries\\Adafruit_AM2320_sensor_library\\Adafruit_AM2320.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\johan\\OneDrive\\Documents\\Arduino\\libraries\\Adafruit_BusIO\\Adafruit_BusIO_Register.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\johan\\OneDrive\\Documents\\Arduino\\libraries\\Adafruit_BusIO\\Adafruit_I2CDevice.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\johan\\OneDrive\\Documents\\Arduino\\libraries\\Adafruit_BusIO\\Adafruit_SPIDevice.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\johan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.11\\libraries\\Wire\\src\\Wire.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\johan\\OneDrive\\Documents\\Arduino\\libraries\\Adafruit_Unified_Sensor\\Adafruit_Sensor.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\johan\\OneDrive\\Documents\\Arduino\\libraries\\DHTNEW\\dhtnew.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\johan\\OneDrive\\Documents\\Arduino\\libraries\\SoftwareSerial\\src\\SoftwareSerial.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\johan\\OneDrive\\Documents\\Arduino\\libraries\\HX711\\HX711.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\johan\\OneDrive\\Documents\\Arduino\\libraries\\MH-Z_CO2_Sensors\\MHZ.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\johan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.11\\libraries\\SPI\\src\\SPI.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\johan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.11\\libraries\\SD\\src\\SD.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\johan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.11\\libraries\\SD\\src\\sd_diskio.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\johan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.11\\libraries\\SD\\src\\sd_diskio_crc.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\johan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.11\\libraries\\FS\\src\\FS.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\johan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.11\\libraries\\FS\\src\\vfs_api.cpp",
+    "Include": "",
+    "Includepath": null
+  }
+]

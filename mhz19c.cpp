@@ -1,6 +1,7 @@
 #include "mhz19c.hpp"
 #include <MHZ.h>
 #include <SoftwareSerial.h>
+#include "definitions.h"
 
 
 #define MH_Z19_RX 3       // D7
@@ -15,12 +16,13 @@ MHZ co2(MH_Z19_RX, MH_Z19_TX, CO2_IN, MHZ19C);
 int mhz19_init( void ) 
 {
     // TODO: library doesn't check preheating status when using pwm...
-    /*     */ 
-    if (co2.isPreHeating()) {
-      Serial.print("CO2 sensor is preheating");
-      while (co2.isPreHeating()) {
-        Serial.print(".");
-        delay(5000);
+    if (true == MHZ19C_USE_PREHEATING) {
+      if (co2.isPreHeating()) {
+        Serial.print("CO2 sensor is preheating");
+        while (co2.isPreHeating()) {
+          Serial.print(".");
+          delay(5000);
+        }
       }
     }
 

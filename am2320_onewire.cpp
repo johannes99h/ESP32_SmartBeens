@@ -17,8 +17,8 @@ struct data am2320_3_data;
 int am2320_init( void )
 {
     am2320_1.setType(22);
-    am2320_1.setHumOffset(6.3);     // only for sensor 1 on breadboard necessary!
     am2320_2.setType(22);
+    am2320_2.setHumOffset(6.3); 
     am2320_3.setType(22);
 
     Serial.println("AM2320 initialized.");
