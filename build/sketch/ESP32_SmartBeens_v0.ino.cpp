@@ -2,7 +2,6 @@
 #line 1 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino"
 #include "sd_card.hpp"
 #include "mhz19c.hpp"
-// #include "am2320.hpp"           // probably obsolete now!
 #include "am2320_onewire.hpp"
 #include "hx711.hpp"
 #include "energy_optimization.hpp"
@@ -19,13 +18,13 @@ extern struct data am2320_2_data;
 extern struct data am2320_3_data;
 
 
-#line 20 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino"
+#line 19 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino"
 void setup();
-#line 44 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino"
+#line 42 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino"
 void loop();
-#line 47 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino"
+#line 45 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino"
 int runtime_routine( void );
-#line 20 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino"
+#line 19 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino"
 void setup() {
 
     wake_up_from_deep_sleep();
@@ -36,7 +35,6 @@ void setup() {
     // initialize connected sensors
     if (-1 == sd_card_init()) { prepare_deep_sleep(); }
     mhz19_init();                                                 // will take 60s to warm up
-    // am2320_i2c_init();                                            // wrong function?!
     am2320_init();
     hx711_init(); 
 

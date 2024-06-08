@@ -80,6 +80,16 @@
     "Includepath": null
   },
   {
+    "Sourcefile": "C:\\Github\\ESP32_SmartBeens_v0\\build\\sketch\\mhz19e.cpp",
+    "Include": "MHZ19.h",
+    "Includepath": "C:\\Users\\johan\\OneDrive\\Documents\\Arduino\\libraries\\MHZ19_uart\\src"
+  },
+  {
+    "Sourcefile": "C:\\Github\\ESP32_SmartBeens_v0\\build\\sketch\\mhz19e.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
     "Sourcefile": "C:\\Github\\ESP32_SmartBeens_v0\\build\\sketch\\sd_card.cpp",
     "Include": "SPI.h",
     "Includepath": "C:\\Users\\johan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.11\\libraries\\SPI\\src"
@@ -146,6 +156,11 @@
   },
   {
     "Sourcefile": "C:\\Users\\johan\\OneDrive\\Documents\\Arduino\\libraries\\MH-Z_CO2_Sensors\\MHZ.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\johan\\OneDrive\\Documents\\Arduino\\libraries\\MHZ19_uart\\src\\MHZ19.cpp",
     "Include": "",
     "Includepath": null
   },

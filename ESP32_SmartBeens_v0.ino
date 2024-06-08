@@ -1,6 +1,5 @@
 #include "sd_card.hpp"
 #include "mhz19c.hpp"
-// #include "am2320.hpp"           // probably obsolete now!
 #include "am2320_onewire.hpp"
 #include "hx711.hpp"
 #include "energy_optimization.hpp"
@@ -27,7 +26,6 @@ void setup() {
     // initialize connected sensors
     if (-1 == sd_card_init()) { prepare_deep_sleep(); }
     mhz19_init();                                                 // will take 60s to warm up
-    // am2320_i2c_init();                                            // wrong function?!
     am2320_init();
     hx711_init(); 
 

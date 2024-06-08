@@ -1,15 +1,14 @@
 # 1 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino"
 # 2 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino" 2
 # 3 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino" 2
-// #include "am2320.hpp"           // probably obsolete now!
+# 4 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino" 2
 # 5 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino" 2
 # 6 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino" 2
 # 7 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino" 2
-# 8 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino" 2
 
 
 
-# 10 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino"
+# 9 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino"
 __attribute__((section(".rtc.data" "." "28"))) unsigned long current_file_idx = 0; // file index on SD card
 __attribute__((section(".rtc.data" "." "29"))) unsigned long long boot_count = 0; // wakeup cycle count
 __attribute__((section(".rtc.data" "." "30"))) unsigned long long time_since_start = 0; // time since start of measurement
@@ -30,7 +29,6 @@ void setup() {
     // initialize connected sensors
     if (-1 == sd_card_init()) { prepare_deep_sleep(); }
     mhz19_init(); // will take 60s to warm up
-    // am2320_i2c_init();                                            // wrong function?!
     am2320_init();
     hx711_init();
 
