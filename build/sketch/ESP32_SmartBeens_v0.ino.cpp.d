@@ -1,5 +1,5 @@
-C:\Github\ESP32_SmartBeens_v0\build\sketch\ESP32_SmartBeens_v0.ino.cpp.o: \
- C:\Github\ESP32_SmartBeens_v0\build\sketch\ESP32_SmartBeens_v0.ino.cpp \
+c:\Github\ESP32_SmartBeens_v0\build\sketch\ESP32_SmartBeens_v0.ino.cpp.o: \
+ c:\Github\ESP32_SmartBeens_v0\build\sketch\ESP32_SmartBeens_v0.ino.cpp \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11\cores\esp32/Arduino.h \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11\cores\esp32/esp_arduino_version.h \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11/tools/sdk/esp32/include/freertos/include/freertos/FreeRTOS.h \
@@ -132,8 +132,14 @@ C:\Github\ESP32_SmartBeens_v0\build\sketch\ESP32_SmartBeens_v0.ino.cpp.o: \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11/tools/sdk/esp32/include/esp_hw_support/include/soc/esp32/spiram.h \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11\cores\esp32/io_pin_remap.h \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11\cores\esp32/Arduino.h \
- C:\Github\ESP32_SmartBeens_v0\build\sketch\sd_card.hpp \
- C:\Github\ESP32_SmartBeens_v0\build\sketch\mhz19c.hpp \
- C:\Github\ESP32_SmartBeens_v0\build\sketch\am2320_onewire.hpp \
- C:\Github\ESP32_SmartBeens_v0\build\sketch\hx711.hpp \
- C:\Github\ESP32_SmartBeens_v0\build\sketch\energy_optimization.hpp
+ c:\Github\ESP32_SmartBeens_v0\build\sketch\sd_card.hpp \
+ c:\Github\ESP32_SmartBeens_v0\build\sketch\mhz19c.hpp \
+ c:\Github\ESP32_SmartBeens_v0\build\sketch\mhz19e.hpp \
+ C:\Users\johan\OneDrive\Documents\Arduino\libraries\MHZ19_uart\src/MHZ19.h \
+ C:\Users\johan\OneDrive\Documents\Arduino\libraries\SoftwareSerial\src/SoftwareSerial.h \
+ C:\Users\johan\OneDrive\Documents\Arduino\libraries\SoftwareSerial\src/circular_queue/circular_queue.h \
+ C:\Users\johan\OneDrive\Documents\Arduino\libraries\SoftwareSerial\src/circular_queue/Delegate.h \
+ c:\Github\ESP32_SmartBeens_v0\build\sketch\am2320_onewire.hpp \
+ c:\Github\ESP32_SmartBeens_v0\build\sketch\hx711.hpp \
+ c:\Github\ESP32_SmartBeens_v0\build\sketch\energy_optimization.hpp \
+ c:\Github\ESP32_SmartBeens_v0\build\sketch\definitions.h

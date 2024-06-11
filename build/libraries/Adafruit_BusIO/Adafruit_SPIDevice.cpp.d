@@ -1,4 +1,4 @@
-C:\Github\ESP32_SmartBeens_v0\build\libraries\Adafruit_BusIO\Adafruit_SPIDevice.cpp.o: \
+c:\Github\ESP32_SmartBeens_v0\build\libraries\Adafruit_BusIO\Adafruit_SPIDevice.cpp.o: \
  C:\Users\johan\OneDrive\Documents\Arduino\libraries\Adafruit_BusIO\Adafruit_SPIDevice.cpp \
  C:\Users\johan\OneDrive\Documents\Arduino\libraries\Adafruit_BusIO\Adafruit_SPIDevice.h \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11\cores\esp32/Arduino.h \

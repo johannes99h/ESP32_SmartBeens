@@ -1,4 +1,4 @@
-C:\Github\ESP32_SmartBeens_v0\build\libraries\Adafruit_AM2320_sensor_library\Adafruit_AM2320.cpp.o: \
+c:\Github\ESP32_SmartBeens_v0\build\libraries\Adafruit_AM2320_sensor_library\Adafruit_AM2320.cpp.o: \
  C:\Users\johan\OneDrive\Documents\Arduino\libraries\Adafruit_AM2320_sensor_library\Adafruit_AM2320.cpp \
  C:\Users\johan\OneDrive\Documents\Arduino\libraries\Adafruit_AM2320_sensor_library\Adafruit_AM2320.h \
  C:\Users\johan\OneDrive\Documents\Arduino\libraries\Adafruit_BusIO/Adafruit_I2CDevice.h \

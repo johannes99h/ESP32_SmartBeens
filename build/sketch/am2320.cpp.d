@@ -1,6 +1,6 @@
-C:\Github\ESP32_SmartBeens_v0\build\sketch\am2320.cpp.o: \
- C:\Github\ESP32_SmartBeens_v0\build\sketch\am2320.cpp \
- C:\Github\ESP32_SmartBeens_v0\build\sketch\am2320.hpp \
+c:\Github\ESP32_SmartBeens_v0\build\sketch\am2320.cpp.o: \
+ c:\Github\ESP32_SmartBeens_v0\build\sketch\am2320.cpp \
+ c:\Github\ESP32_SmartBeens_v0\build\sketch\am2320.hpp \
  C:\Users\johan\OneDrive\Documents\Arduino\libraries\Adafruit_AM2320_sensor_library/Adafruit_AM2320.h \
  C:\Users\johan\OneDrive\Documents\Arduino\libraries\Adafruit_BusIO/Adafruit_I2CDevice.h \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11\cores\esp32/Arduino.h \

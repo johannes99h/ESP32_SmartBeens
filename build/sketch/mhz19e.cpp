@@ -19,7 +19,7 @@ int mhz19e_init( void )
 }
 
 
-measurement_t mhz19e_get_temperature_ppm( void )
+measurement_t mhz19e_get_temperature_and_co2( void )
 {
     measurement_t m = mhz19_uart->getMeasurement();
     
@@ -27,4 +27,28 @@ measurement_t mhz19e_get_temperature_ppm( void )
     Serial.printf("Temperature at CO2 sensor: %d °C\n\r", m.temperature);
   
   return m;
+}
+
+
+float mhz19e_get_temperature( void )
+{
+  measurement_t m = mhz19_uart->getMeasurement();
+  
+  float temperature = m.temperature;
+
+  Serial.printf("Temperature at CO2 sensor: %.1f °C\n\r", m.temperature);
+
+  return temperature;
+}
+
+
+int mhz19e_get_co2( void )
+{
+  measurement_t m = mhz19_uart->getMeasurement();
+
+  int co2 = m.co2_ppm;
+
+  Serial.printf("CO2 concentration: %dppm\n\r", m.co2_ppm);
+  
+  return co2;
 }

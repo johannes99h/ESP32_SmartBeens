@@ -1,4 +1,4 @@
-C:\Github\ESP32_SmartBeens_v0\build\libraries\Wire\Wire.cpp.o: \
+c:\Github\ESP32_SmartBeens_v0\build\libraries\Wire\Wire.cpp.o: \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11\libraries\Wire\src\Wire.cpp \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11\cores\esp32/esp32-hal-i2c.h \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11/tools/sdk/esp32/include/esp_common/include/esp_err.h \

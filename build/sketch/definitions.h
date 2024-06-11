@@ -2,6 +2,8 @@
 
 
 /* MHZ19x CO2 Sensor */
+#define USED_MHZ19C                 false
+#define USED_MHZ19E                 true
 #define MHZ19C_USE_PREHEATING       false
 
 

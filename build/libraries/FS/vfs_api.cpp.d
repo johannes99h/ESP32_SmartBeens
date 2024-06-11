@@ -1,4 +1,4 @@
-C:\Github\ESP32_SmartBeens_v0\build\libraries\FS\vfs_api.cpp.o: \
+c:\Github\ESP32_SmartBeens_v0\build\libraries\FS\vfs_api.cpp.o: \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11\libraries\FS\src\vfs_api.cpp \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11\libraries\FS\src\vfs_api.h \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11\libraries\FS\src\FS.h \

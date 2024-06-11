@@ -1,6 +1,6 @@
-C:\Github\ESP32_SmartBeens_v0\build\sketch\energy_optimization.cpp.o: \
- C:\Github\ESP32_SmartBeens_v0\build\sketch\energy_optimization.cpp \
- C:\Github\ESP32_SmartBeens_v0\build\sketch\energy_optimization.hpp \
+c:\Github\ESP32_SmartBeens_v0\build\sketch\energy_optimization.cpp.o: \
+ c:\Github\ESP32_SmartBeens_v0\build\sketch\energy_optimization.cpp \
+ c:\Github\ESP32_SmartBeens_v0\build\sketch\energy_optimization.hpp \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11/tools/sdk/esp32/include/esp_hw_support/include/esp_sleep.h \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11/tools/sdk/esp32/include/esp_common/include/esp_err.h \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11/tools/sdk/esp32/include/esp_common/include/esp_compiler.h \
@@ -136,5 +136,5 @@ C:\Github\ESP32_SmartBeens_v0\build\sketch\energy_optimization.cpp.o: \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11\cores\esp32/io_pin_remap.h \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11\cores\esp32/Arduino.h \
  C:\Users\johan\OneDrive\Documents\Arduino\libraries\SoftwareSerial\src/circular_queue/Delegate.h \
- C:\Github\ESP32_SmartBeens_v0\build\sketch\am2320_onewire.hpp \
- C:\Github\ESP32_SmartBeens_v0\build\sketch\sd_card.hpp
+ c:\Github\ESP32_SmartBeens_v0\build\sketch\am2320_onewire.hpp \
+ c:\Github\ESP32_SmartBeens_v0\build\sketch\sd_card.hpp

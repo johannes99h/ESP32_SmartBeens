@@ -1,4 +1,4 @@
-C:\Github\ESP32_SmartBeens_v0\build\libraries\SPI\SPI.cpp.o: \
+c:\Github\ESP32_SmartBeens_v0\build\libraries\SPI\SPI.cpp.o: \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11\libraries\SPI\src\SPI.cpp \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11\libraries\SPI\src\SPI.h \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11\variants\esp32/pins_arduino.h \

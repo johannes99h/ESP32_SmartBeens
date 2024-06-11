@@ -1,6 +1,6 @@
-C:\Github\ESP32_SmartBeens_v0\build\sketch\mhz19c.cpp.o: \
- C:\Github\ESP32_SmartBeens_v0\build\sketch\mhz19c.cpp \
- C:\Github\ESP32_SmartBeens_v0\build\sketch\mhz19c.hpp \
+c:\Github\ESP32_SmartBeens_v0\build\sketch\mhz19c.cpp.o: \
+ c:\Github\ESP32_SmartBeens_v0\build\sketch\mhz19c.cpp \
+ c:\Github\ESP32_SmartBeens_v0\build\sketch\mhz19c.hpp \
  C:\Users\johan\OneDrive\Documents\Arduino\libraries\MH-Z_CO2_Sensors/MHZ.h \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11\cores\esp32/Arduino.h \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11\cores\esp32/esp_arduino_version.h \
@@ -137,4 +137,4 @@ C:\Github\ESP32_SmartBeens_v0\build\sketch\mhz19c.cpp.o: \
  C:\Users\johan\OneDrive\Documents\Arduino\libraries\SoftwareSerial\src/SoftwareSerial.h \
  C:\Users\johan\OneDrive\Documents\Arduino\libraries\SoftwareSerial\src/circular_queue/circular_queue.h \
  C:\Users\johan\OneDrive\Documents\Arduino\libraries\SoftwareSerial\src/circular_queue/Delegate.h \
- C:\Github\ESP32_SmartBeens_v0\build\sketch\definitions.h
+ c:\Github\ESP32_SmartBeens_v0\build\sketch\definitions.h

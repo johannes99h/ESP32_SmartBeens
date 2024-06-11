@@ -1,6 +1,6 @@
-C:\Github\ESP32_SmartBeens_v0\build\sketch\am2320_onewire.cpp.o: \
- C:\Github\ESP32_SmartBeens_v0\build\sketch\am2320_onewire.cpp \
- C:\Github\ESP32_SmartBeens_v0\build\sketch\am2320_onewire.hpp \
+c:\Github\ESP32_SmartBeens_v0\build\sketch\am2320_onewire.cpp.o: \
+ c:\Github\ESP32_SmartBeens_v0\build\sketch\am2320_onewire.cpp \
+ c:\Github\ESP32_SmartBeens_v0\build\sketch\am2320_onewire.hpp \
  C:\Users\johan\OneDrive\Documents\Arduino\libraries\DHTNEW/dhtnew.h \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11\cores\esp32/Arduino.h \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11\cores\esp32/esp_arduino_version.h \

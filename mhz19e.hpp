@@ -11,7 +11,9 @@
 
 
 int mhz19e_init( void );
-measurement_t mhz19e_get_temperature_ppm( void );
+measurement_t mhz19e_get_temperature_and_co2( void );
+float mhz19e_get_temperature( void );
+int mhz19e_get_co2( void ); 
 
 
 #endif /* INCLUDED__ESP32_SMART_BEENS_V0__MHZ19E_HPP */

@@ -1,4 +1,4 @@
-C:\Github\ESP32_SmartBeens_v0\build\libraries\SoftwareSerial\SoftwareSerial.cpp.o: \
+c:\Github\ESP32_SmartBeens_v0\build\libraries\SoftwareSerial\SoftwareSerial.cpp.o: \
  C:\Users\johan\OneDrive\Documents\Arduino\libraries\SoftwareSerial\src\SoftwareSerial.cpp \
  C:\Users\johan\OneDrive\Documents\Arduino\libraries\SoftwareSerial\src\SoftwareSerial.h \
  C:\Users\johan\OneDrive\Documents\Arduino\libraries\SoftwareSerial\src\circular_queue/circular_queue.h \

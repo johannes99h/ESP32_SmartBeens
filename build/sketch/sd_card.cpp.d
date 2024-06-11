@@ -1,6 +1,6 @@
-C:\Github\ESP32_SmartBeens_v0\build\sketch\sd_card.cpp.o: \
- C:\Github\ESP32_SmartBeens_v0\build\sketch\sd_card.cpp \
- C:\Github\ESP32_SmartBeens_v0\build\sketch\sd_card.hpp \
+c:\Github\ESP32_SmartBeens_v0\build\sketch\sd_card.cpp.o: \
+ c:\Github\ESP32_SmartBeens_v0\build\sketch\sd_card.cpp \
+ c:\Github\ESP32_SmartBeens_v0\build\sketch\sd_card.hpp \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11\libraries\SPI\src/SPI.h \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11\variants\esp32/pins_arduino.h \
  C:\Users\johan\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.11\cores\esp32/esp32-hal-spi.h \
