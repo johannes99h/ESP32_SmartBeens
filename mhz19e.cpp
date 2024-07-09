@@ -2,12 +2,16 @@
 #include "definitions.h"
 
 
-MHZ19 *mhz19_uart = new MHZ19(MHZ19E_RX, MHZ19E_TX);
+MHZ19 *mhz19_uart = NULL;
 
 
 int mhz19e_init( void ) 
 {
-    mhz19_uart->begin(MHZ19E_RX, MHZ19E_TX);
+    MHZ19 *mhz19_ptr = new MHZ19(MHZ19x_RX, MHZ19x_TX);
+    mhz19_uart = mhz19_ptr;
+    delay(500);
+    
+    mhz19_uart->begin(MHZ19x_RX, MHZ19x_TX);
     mhz19_uart->setAutoCalibration(false);
     delay(500);
     Serial.printf("MHZ19E heating up... Status: %d.\n\r", mhz19_uart->getStatus());
@@ -50,4 +54,10 @@ int mhz19e_get_co2( void )
   Serial.printf("CO2 concentration: %dppm\n\r", m.co2_ppm);
   
   return co2;
+}
+
+
+void mhz19e_deinit( void )
+{
+  delete mhz19_uart;
 }

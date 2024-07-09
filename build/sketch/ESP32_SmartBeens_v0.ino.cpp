@@ -22,13 +22,12 @@ extern struct data am2320_3_data;
 
 #line 21 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino"
 void setup();
-#line 45 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino"
+#line 44 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino"
 void loop();
-#line 48 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino"
+#line 47 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino"
 int runtime_routine( void );
 #line 21 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino"
 void setup() {
-
     wake_up_from_deep_sleep();
 
     // initialize pinout

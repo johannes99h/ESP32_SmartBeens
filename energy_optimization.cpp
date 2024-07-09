@@ -1,8 +1,9 @@
 #include "energy_optimization.hpp"
 #include "esp_sleep.h"
 #include <SoftwareSerial.h>
-#include "am2320_onewire.hpp"
+#include "am2320.hpp"
 #include "sd_card.hpp"
+#include "definitions.h"
 
 
 int wake_up_from_deep_sleep() 
@@ -18,8 +19,7 @@ int wake_up_from_deep_sleep()
     // activate serial console
     Serial.begin(9600);
     delay(1000);
-    Serial.println("");
-    Serial.println("---------------------");
+    Serial.printf("\n\r\n\r\n\r---------------------");
     
     // waking up from deep sleep
     Serial.println("Wakeup cycle: " + String(boot_count));
@@ -62,6 +62,7 @@ int prepare_deep_sleep()
 
     // heartbeat LED
     // blink_onboard_led(3);
+
     Serial.println("Going to sleep now, will wake in " + String(TIME_TO_SLEEP) + " seconds.");
     Serial.println("---------------------");
     delay(1000);
@@ -75,15 +76,3 @@ int prepare_deep_sleep()
     return 0;
 }
 
-
-int blink_onboard_led(unsigned int count) 
-{
-  for (int i = 0; i <= count; i++) {
-    digitalWrite(ONBOARD_LED, HIGH);
-    delay(50);                       // replace by non-blocking delay
-    digitalWrite(ONBOARD_LED, LOW);
-    delay(50);
-  }
-
-  return 0;
-}

@@ -10,9 +10,8 @@ void hx711_init( void )
 {
   scale.begin(HX711_DATA, HX711_CLOCK);
 
-  // TODO: get offset and scale factor on every setup
-  scale.set_offset(340326);
-  scale.set_scale(21.678782);
+  scale.set_offset(HX711_OFFSET);
+  scale.set_scale(HX711_SCALE_FACTOR);
 
   Serial.println("HX711 initialized.");
 }
@@ -70,7 +69,7 @@ float hx711_get_weight( void )
   float weight_unit = scale.get_units(HX711_READ_SAMPLES);
   Serial.printf("Weight unit: %f\n\r", weight_unit);
 
-  scale.power_down();
+  // scale.power_down();
 
   return weight_unit;
 }

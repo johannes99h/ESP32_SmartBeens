@@ -134,9 +134,11 @@ int sd_card_read_from_file(const char* path)
 int sd_card_deinit( void )
 {
   // energy optimization
+  /*
   SD.end();
   digitalWrite(5, LOW);  // <- illegal instruction, causes kernel panics?
   Serial.printf("SD card deinitialized.\n\r");
+  */
 
   return 0;
 }

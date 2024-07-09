@@ -19,8 +19,7 @@ int wake_up_from_deep_sleep()
     // activate serial console
     Serial.begin(9600);
     delay(1000);
-    Serial.println("");
-    Serial.println("---------------------");
+    Serial.printf("\n\r\n\r\n\r---------------------");
     
     // waking up from deep sleep
     Serial.println("Wakeup cycle: " + String(boot_count));

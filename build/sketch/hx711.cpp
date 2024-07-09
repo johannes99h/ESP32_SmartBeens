@@ -71,7 +71,7 @@ float hx711_get_weight( void )
   float weight_unit = scale.get_units(HX711_READ_SAMPLES);
   Serial.printf("Weight unit: %f\n\r", weight_unit);
 
-  scale.power_down();
+  // scale.power_down();
 
   return weight_unit;
 }

@@ -1,36 +1,30 @@
 #include "sd_card.hpp"
+#include "definitions.h"
 #include <SPI.h>
 #include <SD.h>
 
 
 File myFile;
-const int CS = 5;
 
 
 int sd_card_init( void )
 {
   Serial.println("Initializing SD card...");
 
-  if(!SD.begin(CS))
+  if(!SD.begin(SD_CARD_CS))
   { 
     Serial.println("Initialization failed!");
     return -1;
   }
   
   Serial.println("SD card initialized.");
-
-  for(int i = 0; i < 3; i++) {
-    digitalWrite(2, HIGH);
-    delay(50); 
-    digitalWrite(2, LOW);
-    delay(50);
-  }
+  blink_onboard_led(3); 
 
   return 0;
 }
 
 
-uint32_t sd_card_create_new_file( void )
+uint32_t sd_card_create_new_log_file( void )
 {  
   uint32_t file_idx = 0;
   char path[24] = "/esp32_log_0.txt";
@@ -45,26 +39,72 @@ uint32_t sd_card_create_new_file( void )
     sprintf(path, "/esp32_log_%lu.txt", file_idx);
   }
   
-  Serial.printf("Successfully created new file %s on SD card.\n\r", path);
+  Serial.printf("Successfully created new log file %s on SD card.\n\r", path);
 
   // open filestream
   myFile = SD.open(path, FILE_WRITE);
 
   // print data information as first lines
-  myFile.println("Time since POR | T1 | RH1 | T2 | RH2 | T3 | RH3 | CO2 | G");
+  if (USED_MHZ19C) { myFile.printf("Time since POR | T1 | RH1 | T2 | RH2 | T3 | RH3 | CO2 | G\n\r"); }
+  if (USED_MHZ19E) { myFile.printf("Time since POR | T1 | RH1 | T2 | RH2 | T3 | RH3 | T4 | CO2 | G\n\r"); }
   myFile.println("-----------------------------------------------------------");
 
   // close filestream
   myFile.close();
-
-  for(int i = 0; i < 3; i++) {
-    digitalWrite(2, HIGH);
-    delay(50); 
-    digitalWrite(2, LOW);
-    delay(50);
-  }
+  blink_onboard_led(3);
 
   return file_idx; 
+}
+
+
+void sd_card_create_new_config_file(int file_idx)
+{
+    char path[24] = "/esp32_config_0.txt";
+
+  sprintf(path, "/esp32_config_%lu.txt", file_idx);
+
+  // open filestream
+  myFile = SD.open(path, FILE_WRITE);
+  Serial.printf("Successfully created new config file %s on SD card.\n\r", path);
+
+  // general ESP configuration
+  myFile.printf("Sleeping interval: TIME_TO_SLEEP \n\r");
+  myFile.printf("Blink onboard LED: USE_ONBOARD_LED \n\r"); 
+  myFile.printf("-----------------------------------------------------------\n\r");
+
+  // AM2320 configuration
+  myFile.printf("AM2320 sensor 1 (pin AM2320_1_DATA_PIN) \n\r");
+  myFile.printf(" - Temperature Offset: AM2320_1_TEMPERATURE_OFFSET \n\r");
+  myFile.printf(" - Humidity Offset: AM2320_1_HUMIDITY_OFFSET \n\r");  
+  myFile.printf("AM2320 sensor 2 (pin AM2320_2_DATA_PIN) \n\r");
+  myFile.printf(" - Temperature Offset: AM2320_2_TEMPERATURE_OFFSET \n\r");
+  myFile.printf(" - Humidity Offset: AM2320_2_HUMIDITY_OFFSET \n\r");  
+  myFile.printf("AM2320 sensor 3 (pin AM2320_3_DATA_PIN) \n\r");
+  myFile.printf(" - Temperature Offset: AM2320_3_TEMPERATURE_OFFSET \n\r");
+  myFile.printf(" - Humidity Offset: AM2320_3_HUMIDITY_OFFSET \n\r");  
+
+  // HX711 configuration
+  myFile.printf("Weight sensor: HX711 \n\r");
+  myFile.printf(" - Scale Factor: HX711_SCALE_FACTOR \n\r");
+  myFile.printf(" - Offset: HX711_OFFSET \n\r");
+  myFile.printf(" - Load Cell Type: HX711_LOAD_CELL_TYPE \n\r");
+  myFile.printf("-----------------------------------------------------------\n\r");
+
+  // used CO2 sensor
+  if (USED_MHZ19C) { 
+    myFile.printf("CO2 sensor: MHZ19C \n\r"); 
+    myFile.printf(" - PWM \n\r");
+    myFile.printf(" - Preheating used: MHZ19C_PREHEATING \n\r");                      // TODO: if-statement for true and false? depending on test!
+  } else if (USED_MHZ19E) { 
+    myFile.printf("CO2 sensor: MHZ19E \n\r"); 
+    myFile.printf(" - UART \n\r");
+  } else { 
+    myFile.printf("CO2 sensor: -/- \n\r"); 
+  }
+  myFile.printf("-----------------------------------------------------------\n\r");
+
+  // close filestream
+  myFile.close();
 }
 
 
@@ -132,9 +172,8 @@ int sd_card_read_from_file(const char* path)
 
 int sd_card_deinit( void )
 {
-  // energy optimization
+  // energy optimization, not tested yet
   SD.end();
-  digitalWrite(5, LOW);  // <- illegal instruction, causes kernel panics?
   Serial.printf("SD card deinitialized.\n\r");
 
   return 0;

@@ -11,9 +11,9 @@
 
 
 # 11 "C:\\Github\\ESP32_SmartBeens_v0\\ESP32_SmartBeens_v0.ino"
-__attribute__((section(".rtc.data" "." "58"))) unsigned long current_file_idx = 0; // file index on SD card
-__attribute__((section(".rtc.data" "." "59"))) unsigned long long boot_count = 0; // wakeup cycle count
-__attribute__((section(".rtc.data" "." "60"))) unsigned long long time_since_start = 0; // time since start of measurement
+__attribute__((section(".rtc.data" "." "30"))) unsigned long current_file_idx = 0; // file index on SD card
+__attribute__((section(".rtc.data" "." "31"))) unsigned long long boot_count = 0; // wakeup cycle count
+__attribute__((section(".rtc.data" "." "32"))) unsigned long long time_since_start = 0; // time since start of measurement
 
 
 extern struct data am2320_1_data;
@@ -22,7 +22,6 @@ extern struct data am2320_3_data;
 
 
 void setup() {
-
     wake_up_from_deep_sleep();
 
     // initialize pinout

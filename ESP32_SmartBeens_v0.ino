@@ -1,7 +1,7 @@
 #include "sd_card.hpp"
 #include "mhz19c.hpp"
 #include "mhz19e.hpp"
-#include "am2320_onewire.hpp"
+#include "am2320.hpp"
 #include "hx711.hpp"
 #include "energy_optimization.hpp"
 #include "definitions.h"
@@ -19,7 +19,6 @@ extern struct data am2320_3_data;
 
 
 void setup() {
-
     wake_up_from_deep_sleep();
 
     // initialize pinout
@@ -33,7 +32,8 @@ void setup() {
     hx711_init(); 
 
     if (1 == boot_count) {
-      current_file_idx = sd_card_create_new_file();
+      current_file_idx = sd_card_create_new_log_file();
+      sd_card_create_new_config_file(current_file_idx);
     }
 
     runtime_routine();
@@ -67,6 +67,9 @@ int runtime_routine( void )
             am2320_2_data.temperature, am2320_2_data.humidity, am2320_3_data.temperature, am2320_3_data.humidity, co2_temperature, co2_ppm, weight);
     sd_card_append_to_log_file(current_file_idx, data); 
   }
+
+  if (USED_MHZ19E) { mhz19e_deinit(); }
+  sd_card_deinit();
 
   return 0;
 }
