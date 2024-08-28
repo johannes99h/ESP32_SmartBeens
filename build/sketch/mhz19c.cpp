@@ -5,13 +5,7 @@
 #include "definitions.h"
 
 
-#define MH_Z19_RX 3       // D7
-#define MH_Z19_TX 2       // D6
-#define CO2_IN 13         // Arduino pin for pwm reading
-#define SIZE_MEAN_VAL 1
-
-
-MHZ co2(MH_Z19_RX, MH_Z19_TX, CO2_IN, MHZ19C);
+MHZ co2(MHZ19x_RX, MHZ19x_TX, MHZ19C_CO2_IN, MHZ19C);
 
 
 int mhz19_init( void ) 
@@ -42,8 +36,8 @@ int mhz19_get_co2_reading_analog( void )
     // energy optimization
     /* causes exceptions & high current?
     analogRead(CO2_IN);
-    analogRead(MH_Z19_TX);
-    analogRead(MH_Z19_RX);
+    analogRead(MHZ19x_TX);
+    analogRead(MHZ19x_RX);
     */
 
     return ppm_pwm;

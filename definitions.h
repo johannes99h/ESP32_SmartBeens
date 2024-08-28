@@ -2,14 +2,17 @@
 
 
 /* general ESP functions */
+#define _DEBUG                      true
 #define ONBOARD_LED                 2           // pin D2
 #define USE_ONBOARD_LED             true
 #define SD_CARD_CS                  5           // chip-select pin for SD card SPI interface
+#define SD_WRITE_BUFFER             128
 
 
 /* energy optimization */
 #define uS_TO_S_FACTOR              1000000     // conversion factor from micro seconds to seconds
 #define TIME_TO_SLEEP               10          // sleeping time in seconds
+#define BATTERY_VOLTAGE_ADC_PIN     34
 
 
 /* AM2320 temperature and humidity sensors */ 

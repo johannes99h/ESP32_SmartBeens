@@ -53,6 +53,24 @@ int print_wakeup_reason()
 }
 
 
+float get_battery_voltage()
+{
+  int raw_val = analogRead(BATTERY_VOLTAGE_ADC_PIN);
+
+  float shunt_voltage = (float)raw_val * 3.3 / 4096;
+  if (_DEBUG) { Serial.printf("Current shunt voltage: %.2fV\n\r", shunt_voltage); }
+
+  // measurement over lower resistor
+  unsigned int R_1 = 5000;      // upper resistor
+  unsigned int R_2 = 10000;     // lower resistor
+
+  float batt_voltage = shunt_voltage * ((float)R_1 + (float)R_2) / (float)R_2; 
+  if (_DEBUG) { Serial.printf("Current battery voltage: %.2fV\n\r", batt_voltage); }
+
+  return batt_voltage;
+}
+
+
 int prepare_deep_sleep()
 {
     esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);

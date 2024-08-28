@@ -11,9 +11,8 @@ void hx711_init( void )
 {
   scale.begin(HX711_DATA, HX711_CLOCK);
 
-  // TODO: get offset and scale factor on every setup
-  scale.set_offset(340326);
-  scale.set_scale(21.678782);
+  scale.set_offset(HX711_OFFSET);
+  scale.set_scale(HX711_SCALE_FACTOR);
 
   Serial.println("HX711 initialized.");
 }

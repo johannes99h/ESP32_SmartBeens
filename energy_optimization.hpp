@@ -8,6 +8,7 @@ extern unsigned long long boot_count;
 
 int wake_up_from_deep_sleep();
 int print_wakeup_reason();
+float get_battery_voltage();
 int prepare_deep_sleep();
 
 

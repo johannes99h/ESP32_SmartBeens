@@ -69,6 +69,11 @@ float hx711_get_weight( void )
   float weight_unit = scale.get_units(HX711_READ_SAMPLES);
   Serial.printf("Weight unit: %f\n\r", weight_unit);
 
+  if (0 > weight_unit) { 
+    Serial.printf("Weight is negative!\n\r"); 
+    weight_unit = -999; 
+  }
+
   // scale.power_down();
 
   return weight_unit;

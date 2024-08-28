@@ -3,15 +3,23 @@
 #define INCLUDED__ESP32_SMART_BEENS_V0__AM2320_HPP
 
 
-/* i2c temperature sensor pinout
-  - SDA: D21
-  - SCL: D22
+/* onewire temperature sensor pinout
+  - sensor 1 data in: D35
+  - sensor 2 data in: D25
+  - sensor 3 data in: D27
 */
 
 
-int am2320_i2c_init( void );
-float am2320_i2c_get_temperature( void );
-float am2320_i2c_get_humidity( void );
+struct data {
+    int debug_val;
+    float temperature; 
+    float humidity;
+};
 
 
-#endif /* INCLUDED__ESP32_SMART_BEENS_V0__AM2320_HPP */
+int am2320_init( void );
+int am2320_get_sensor_vals( void );
+int am2320_deinit( void );
+
+
+#endif /* INCLUDED__ESP32_SMART_BEENS_V0__AM2320_ONEWIRE_HPP */
