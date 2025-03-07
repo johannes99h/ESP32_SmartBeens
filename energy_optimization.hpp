@@ -8,6 +8,8 @@ extern unsigned long long boot_count;
 
 int wake_up_from_deep_sleep();
 int print_wakeup_reason();
+int gpio_init();
+int gpio_deinit();
 float get_battery_voltage();
 int prepare_deep_sleep();
 

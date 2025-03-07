@@ -57,9 +57,9 @@ uint32_t sd_card_create_new_log_file( void )
 }
 
 
-void sd_card_create_new_config_file(int file_idx)
+void sd_card_create_new_config_file(int file_idx, String timestamp)
 {
-    char path[24] = "/esp32_config_0.txt";
+  char path[24] = "/esp32_config_0.txt";
 
   sprintf(path, "/esp32_config_%lu.txt", file_idx);
 
@@ -67,27 +67,33 @@ void sd_card_create_new_config_file(int file_idx)
   myFile = SD.open(path, FILE_WRITE);
   Serial.printf("Successfully created new config file %s on SD card.\n\r", path);
 
+
+  // timestamp when starting measurement
+  char c_str[20]; 
+  timestamp.toCharArray(c_str, sizeof(c_str));
+  myFile.printf("Logging start: %s", c_str);
+
   // general ESP configuration
-  myFile.printf("Sleeping interval: TIME_TO_SLEEP \n\r");
+  myFile.printf("Sleeping interval: %d\n\r", TIME_TO_SLEEP);
   myFile.printf("Blink onboard LED: USE_ONBOARD_LED \n\r"); 
   myFile.printf("-----------------------------------------------------------\n\r");
 
   // AM2320 configuration
-  myFile.printf("AM2320 sensor 1 (pin AM2320_1_DATA_PIN) \n\r");
-  myFile.printf(" - Temperature Offset: AM2320_1_TEMPERATURE_OFFSET \n\r");
-  myFile.printf(" - Humidity Offset: AM2320_1_HUMIDITY_OFFSET \n\r");  
-  myFile.printf("AM2320 sensor 2 (pin AM2320_2_DATA_PIN) \n\r");
-  myFile.printf(" - Temperature Offset: AM2320_2_TEMPERATURE_OFFSET \n\r");
-  myFile.printf(" - Humidity Offset: AM2320_2_HUMIDITY_OFFSET \n\r");  
-  myFile.printf("AM2320 sensor 3 (pin AM2320_3_DATA_PIN) \n\r");
-  myFile.printf(" - Temperature Offset: AM2320_3_TEMPERATURE_OFFSET \n\r");
-  myFile.printf(" - Humidity Offset: AM2320_3_HUMIDITY_OFFSET \n\r");  
+  myFile.printf("AM2320 sensor 1 (pin %d) \n\r", AM2320_1_DATA_PIN);
+  myFile.printf(" - Temperature Offset: %.1f \n\r", AM2320_1_TEMPERATURE_OFFSET);
+  myFile.printf(" - Humidity Offset: %.1f \n\r", AM2320_1_HUMIDITY_OFFSET);  
+  myFile.printf("AM2320 sensor 2 (pin %d) \n\r", AM2320_2_DATA_PIN);
+  myFile.printf(" - Temperature Offset: %.1f \n\r", AM2320_2_TEMPERATURE_OFFSET);
+  myFile.printf(" - Humidity Offset: %.1f \n\r", AM2320_2_HUMIDITY_OFFSET);  
+  myFile.printf("AM2320 sensor 3 (pin %d) \n\r", AM2320_3_DATA_PIN);
+  myFile.printf(" - Temperature Offset: %.1f \n\r", AM2320_3_TEMPERATURE_OFFSET);
+  myFile.printf(" - Humidity Offset: %.1f \n\r", AM2320_3_HUMIDITY_OFFSET);  
 
   // HX711 configuration
   myFile.printf("Weight sensor: HX711 \n\r");
-  myFile.printf(" - Scale Factor: HX711_SCALE_FACTOR \n\r");
-  myFile.printf(" - Offset: HX711_OFFSET \n\r");
-  myFile.printf(" - Load Cell Type: HX711_LOAD_CELL_TYPE \n\r");
+  myFile.printf(" - Scale Factor: %ld\n\r", HX711_SCALE_FACTOR);
+  myFile.printf(" - Offset: %.6f\n\r", HX711_OFFSET);
+  myFile.printf(" - Load Cell Type: %d\n\r", HX711_LOAD_CELL_TYPE);
   myFile.printf("-----------------------------------------------------------\n\r");
 
   // used CO2 sensor

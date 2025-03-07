@@ -13,7 +13,8 @@ void hx711_init( void )
   scale.set_offset(HX711_OFFSET);
   scale.set_scale(HX711_SCALE_FACTOR);
 
-  Serial.println("HX711 initialized.");
+  Serial.printf("HX711 initialized with Scale Factor: %.6f and Offset: %d\n\r", HX711_SCALE_FACTOR, HX711_OFFSET);
+
 }
 
 
@@ -67,14 +68,14 @@ void hx711_calibrate( void )
 float hx711_get_weight( void )
 {
   float weight_unit = scale.get_units(HX711_READ_SAMPLES);
-  Serial.printf("Weight unit: %f\n\r", weight_unit);
+  Serial.printf("Weight unit: %f (Inverted: HX711_INVERT_DATA)\n\r", weight_unit);
 
   if (0 > weight_unit) { 
     Serial.printf("Weight is negative!\n\r"); 
     weight_unit = -999; 
   }
 
-  // scale.power_down();
+  scale.power_down();
 
   return weight_unit;
 }

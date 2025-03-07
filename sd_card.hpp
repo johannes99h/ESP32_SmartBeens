@@ -2,6 +2,7 @@
 #define INCLUDED__ESP32_SMART_BEENS_V0__SD_CARD_HPP
 
 
+#include <Arduino.h> 
 #include <stdio.h>
 
 
@@ -15,7 +16,7 @@
 
 int sd_card_init( void );
 uint32_t sd_card_create_new_log_file( void );
-void sd_card_create_new_config_file(int file_idx);
+void sd_card_create_new_config_file(int file_idx, String timestamp);
 int sd_card_write_to_file(const char* path, const char* str); 
 int sd_card_append_to_log_file(uint32_t file_idx, const char* str); 
 int sd_card_read_from_file(const char* path); 

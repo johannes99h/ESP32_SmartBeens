@@ -2,40 +2,44 @@
 
 
 /* general ESP functions */
-#define _DEBUG                      true
-#define ONBOARD_LED                 2           // pin D2
-#define USE_ONBOARD_LED             true
-#define SD_CARD_CS                  5           // chip-select pin for SD card SPI interface
-#define SD_WRITE_BUFFER             128
+#define _DEBUG                      false
+#define ONBOARD_LED                 D9           // pin 2, on Firebeetle board D9
+#define USE_ONBOARD_LED             false
+#define SD_CARD_CS                  D6           // chip-select pin for SD card SPI interface
+#define SD_WRITE_BUFFER             512
+#define RTC_USED                    false
+#define TRANSISTORS_USED            true
+#ifdef TRANSISTORS_USED
+#define SENSOR_SUPPLY_3V3           D7
+#define SENSOR_SUPPLY_5V            D9
+#endif
 
 
 /* energy optimization */
 #define uS_TO_S_FACTOR              1000000     // conversion factor from micro seconds to seconds
-#define TIME_TO_SLEEP               10          // sleeping time in seconds
-#define BATTERY_VOLTAGE_ADC_PIN     34
+#define TIME_TO_SLEEP               300        // sleeping time in seconds
+#define BATTERY_VOLTAGE_ADC_PIN     21
 
 
 /* AM2320 temperature and humidity sensors */ 
-#define AM2320_1_DATA_PIN           25
+#define AM2320_1_DATA_PIN           D10
 #define AM2320_1_HUMIDITY_OFFSET    0
 #define AM2320_1_TEMPERATURE_OFFSET 0
-#define AM2320_2_DATA_PIN           26
+#define AM2320_2_DATA_PIN           D11
 #define AM2320_2_HUMIDITY_OFFSET    0
 #define AM2320_2_TEMPERATURE_OFFSET 0
-#define AM2320_3_DATA_PIN           27
+#define AM2320_3_DATA_PIN           D12
 #define AM2320_3_HUMIDITY_OFFSET    0
 #define AM2320_3_TEMPERATURE_OFFSET 0
 
 
 /* MHZ19x CO2 Sensor */
 #define USED_MHZ19C                 false
-#define USED_MHZ19E                 true
-#define MHZ19x_RX                   16          // D16
-#define MHZ19x_TX                   17          // D17
-#define MHZ19C_CO2_IN               13          // Arduino pin for pwm reading
-// #define MHZ19C_SIZE_MEAN_VAL        1           // even used?
+#define USED_MHZ19E                 false
+#define MHZ19x_RX                   21          // D16
+#define MHZ19x_TX                   21          // D17
+#define MHZ19C_CO2_IN               21          // Arduino pin for pwm reading
 #define MHZ19C_USE_PREHEATING       false
-
 
 
 /* HX711 24-bit ADC */
@@ -43,8 +47,8 @@
 #define HX711_CLOCK                 22
 #define HX711_READ_SAMPLES          11          // should be an odd number!
 #define HX711_LOAD_CELL_TYPE        2
-#define HX711_OFFSET                339500
-#define HX711_SCALE_FACTOR          21.438265
+#define HX711_OFFSET                31358
+#define HX711_SCALE_FACTOR          21.671528
 
 
 // blink LED count-times

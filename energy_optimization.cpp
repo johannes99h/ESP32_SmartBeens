@@ -14,11 +14,11 @@ int wake_up_from_deep_sleep()
     }
 
     // heartbeat LED
-    // blink_onboard_led(1);
+    if (_DEBUG) { blink_onboard_led(1); }
 
     // activate serial console
-    Serial.begin(9600);
-    delay(1000);
+    Serial.begin(115200);
+    delay(5000);
     Serial.printf("\n\r\n\r\n\r---------------------");
     
     // waking up from deep sleep
@@ -53,6 +53,37 @@ int print_wakeup_reason()
 }
 
 
+int gpio_init()
+{
+  pinMode(ONBOARD_LED, OUTPUT);
+  pinMode(BATTERY_VOLTAGE_ADC_PIN, INPUT);
+
+  if (TRANSISTORS_USED) {
+    pinMode(SENSOR_SUPPLY_3V3, OUTPUT);
+    pinMode(SENSOR_SUPPLY_5V, OUTPUT);
+    digitalWrite(SENSOR_SUPPLY_3V3, HIGH);
+    digitalWrite(SENSOR_SUPPLY_5V, HIGH); 
+  }
+
+  delay(500);
+
+  return 0; 
+}
+
+
+int gpio_deinit()
+{
+  if (TRANSISTORS_USED) {
+    digitalWrite(SENSOR_SUPPLY_5V, LOW);
+    digitalWrite(SENSOR_SUPPLY_3V3, LOW);
+  }
+
+  delay(100);
+
+  return 0; 
+}
+
+
 float get_battery_voltage()
 {
   int raw_val = analogRead(BATTERY_VOLTAGE_ADC_PIN);
@@ -77,9 +108,10 @@ int prepare_deep_sleep()
 
     am2320_deinit();
     sd_card_deinit();
+    gpio_deinit();
 
     // heartbeat LED
-    // blink_onboard_led(3);
+    if (_DEBUG) { blink_onboard_led(3); }
 
     Serial.println("Going to sleep now, will wake in " + String(TIME_TO_SLEEP) + " seconds.");
     Serial.println("---------------------");
