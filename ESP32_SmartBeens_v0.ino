@@ -5,6 +5,7 @@
 #include "am2320.hpp"
 #include "hx711.hpp"
 #include "energy_optimization.hpp"
+// #include "network.hpp"
 #include "definitions.h"
 #include <stdio.h>
 
@@ -23,6 +24,16 @@ void setup() {
     wake_up_from_deep_sleep();
     init_peripherals();
     runtime_routine();
+
+    // // test MQTT 
+    // if (1 == boot_count) {
+    //   wifi_init();
+    //   mqtt_init();
+    //   mqtt_publish_example();
+    //   mqtt_deinit();
+    //   wifi_deinit();
+    // }
+
     prepare_deep_sleep();
 }
 
@@ -49,6 +60,7 @@ int init_peripherals()
   // init SD card on first power-on
   if (1 == boot_count) {
     current_file_idx = sd_card_create_new_log_file();
+    sd_card_create_new_config_file(current_file_idx, "YYMMDD-hh:mm:ss");
 
     if (RTC_USED) {
       String timestamp = rtc_get_timestamp();
@@ -66,7 +78,7 @@ int sd_prepare_data_log(unsigned long long time, struct data am2320_1, struct da
   char data[SD_WRITE_BUFFER];
 
   // create string to be written
-  unsigned int data_length = sprintf(data, "%d, %.1f, %.1f, %.1f, %.1f, %.1f, %.1f, %.1f, %d, %.1f, %.2f", 
+  unsigned int data_length = sprintf(data, "%d, %.1f, %.1f, %.1f, %.1f, %.1f, %.1f, %.1f, %d, %.1f, %.4f", 
                                     time, am2320_1.temperature, am2320_1.humidity, am2320_2.temperature, 
                                     am2320_2.humidity, am2320_3.temperature, am2320_3.humidity, co2_temperature, 
                                     co2_ppm, weight, batt_voltage);

@@ -2,7 +2,7 @@
 
 
 /* general ESP functions */
-#define _DEBUG                      false
+#define _DEBUG                      true
 #define ONBOARD_LED                 D9           // pin 2, on Firebeetle board D9
 #define USE_ONBOARD_LED             false
 #define SD_CARD_CS                  D6           // chip-select pin for SD card SPI interface
@@ -15,10 +15,20 @@
 #endif
 
 
+/* network */
+// #define WIFI_SSID                   ""
+// #define WIFI_PASSKEY                ""
+// #define MQTT_BROKER                 ""
+// #define MQTT_PORT                   
+// #define MQTT_CREDENTIALS_USR        ""
+// #define MQTT_CREDENTIALS_PASSWORD   ""
+// #define ESP_MQTT_CLIENT_ID          ""
+
+
 /* energy optimization */
 #define uS_TO_S_FACTOR              1000000     // conversion factor from micro seconds to seconds
-#define TIME_TO_SLEEP               300        // sleeping time in seconds
-#define BATTERY_VOLTAGE_ADC_PIN     21
+#define TIME_TO_SLEEP               900          // sleeping time in seconds
+#define BATTERY_VOLTAGE_ADC_PIN     34          // collision with HX711 DATA!
 
 
 /* AM2320 temperature and humidity sensors */ 
@@ -47,9 +57,8 @@
 #define HX711_CLOCK                 22
 #define HX711_READ_SAMPLES          11          // should be an odd number!
 #define HX711_LOAD_CELL_TYPE        2
-#define HX711_OFFSET                31358
-#define HX711_SCALE_FACTOR          21.671528
-
+#define HX711_OFFSET                17241
+#define HX711_SCALE_FACTOR          44.713387
 
 // blink LED count-times
 inline void blink_onboard_led(unsigned int count) 

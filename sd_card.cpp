@@ -45,8 +45,9 @@ uint32_t sd_card_create_new_log_file( void )
   myFile = SD.open(path, FILE_WRITE);
 
   // print data information as first lines
-  if (USED_MHZ19C) { myFile.printf("Time since POR | T1 | RH1 | T2 | RH2 | T3 | RH3 | CO2 | G\n\r"); }
-  if (USED_MHZ19E) { myFile.printf("Time since POR | T1 | RH1 | T2 | RH2 | T3 | RH3 | T4 | CO2 | G\n\r"); }
+  if (USED_MHZ19C) { myFile.printf("Time since POR | T1 | RH1 | T2 | RH2 | T3 | RH3 | CO2 | G | VBatt\n\r"); }
+  else if (USED_MHZ19E) { myFile.printf("Time since POR | T1 | RH1 | T2 | RH2 | T3 | RH3 | T4 | CO2 | G\n\r"); }
+  else { myFile.printf("Time since POR | T1 | RH1 | T2 | RH2 | T3 | RH3 | G\n\r"); }
   myFile.println("-----------------------------------------------------------");
 
   // close filestream
@@ -71,7 +72,7 @@ void sd_card_create_new_config_file(int file_idx, String timestamp)
   // timestamp when starting measurement
   char c_str[20]; 
   timestamp.toCharArray(c_str, sizeof(c_str));
-  myFile.printf("Logging start: %s", c_str);
+  myFile.printf("Logging start: %s\n\r", c_str);
 
   // general ESP configuration
   myFile.printf("Sleeping interval: %d\n\r", TIME_TO_SLEEP);
@@ -91,8 +92,8 @@ void sd_card_create_new_config_file(int file_idx, String timestamp)
 
   // HX711 configuration
   myFile.printf("Weight sensor: HX711 \n\r");
-  myFile.printf(" - Scale Factor: %ld\n\r", HX711_SCALE_FACTOR);
-  myFile.printf(" - Offset: %.6f\n\r", HX711_OFFSET);
+  myFile.printf(" - Scale Factor: %.6f\n\r", HX711_SCALE_FACTOR);
+  myFile.printf(" - Offset: %d\n\r", HX711_OFFSET);
   myFile.printf(" - Load Cell Type: %d\n\r", HX711_LOAD_CELL_TYPE);
   myFile.printf("-----------------------------------------------------------\n\r");
 
