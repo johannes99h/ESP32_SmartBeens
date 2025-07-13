@@ -1,10 +1,11 @@
 #include <Arduino.h>
+#include "secrets.h"
 
 
 /* general ESP functions */
 #define _DEBUG                      true
 #define ONBOARD_LED                 D9           // pin 2, on Firebeetle board D9
-#define USE_ONBOARD_LED             false
+#define USE_ONBOARD_LED             true
 #define SD_CARD_CS                  D6           // chip-select pin for SD card SPI interface
 #define SD_WRITE_BUFFER             512
 #define RTC_USED                    false
@@ -13,16 +14,6 @@
 #define SENSOR_SUPPLY_3V3           D7
 #define SENSOR_SUPPLY_5V            D9
 #endif
-
-
-/* network */
-// #define WIFI_SSID                   ""
-// #define WIFI_PASSKEY                ""
-// #define MQTT_BROKER                 ""
-// #define MQTT_PORT                   
-// #define MQTT_CREDENTIALS_USR        ""
-// #define MQTT_CREDENTIALS_PASSWORD   ""
-// #define ESP_MQTT_CLIENT_ID          ""
 
 
 /* energy optimization */
@@ -57,8 +48,8 @@
 #define HX711_CLOCK                 22
 #define HX711_READ_SAMPLES          11          // should be an odd number!
 #define HX711_LOAD_CELL_TYPE        2
-#define HX711_OFFSET                17241
-#define HX711_SCALE_FACTOR          44.713387
+#define HX711_OFFSET                39757
+#define HX711_SCALE_FACTOR          21.732576
 
 // blink LED count-times
 inline void blink_onboard_led(unsigned int count) 
