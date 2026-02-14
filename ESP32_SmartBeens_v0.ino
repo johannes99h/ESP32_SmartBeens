@@ -5,7 +5,7 @@
 #include "am2320.hpp"
 #include "hx711.hpp"
 #include "energy_optimization.hpp"
-// #include "network.hpp"
+#include "sim7070.hpp"
 #include "definitions.h"
 #include <stdio.h>
 
@@ -24,16 +24,6 @@ void setup() {
     wake_up_from_deep_sleep();
     init_peripherals();
     runtime_routine();
-
-    // // test MQTT 
-    // if (1 == boot_count) {
-    //   wifi_init();
-    //   mqtt_init();
-    //   mqtt_publish_example();
-    //   mqtt_deinit();
-    //   wifi_deinit();
-    // }
-
     prepare_deep_sleep();
 }
 
@@ -66,7 +56,11 @@ int init_peripherals()
       String timestamp = rtc_get_timestamp();
       sd_card_create_new_config_file(current_file_idx, timestamp);
     }
-  } 
+  }
+
+  if (LTE_MODEM_USED) {
+    sim7070_init();
+  }
 
   return 0;
 }

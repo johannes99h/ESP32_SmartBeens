@@ -10,15 +10,25 @@
 #define SD_WRITE_BUFFER             512
 #define RTC_USED                    false
 #define TRANSISTORS_USED            true
-#ifdef TRANSISTORS_USED
+#ifdef  TRANSISTORS_USED
 #define SENSOR_SUPPLY_3V3           D7
 #define SENSOR_SUPPLY_5V            D9
 #endif
+#define LTE_MODEM_USED              true
+
+
+/* SIM7070G LTE modem */
+#define MODEM_RX                    16          // RX pin from ESP32 → TX of SIM7070
+#define MODEM_TX                    17          // TX pin from ESP32 → RX of SIM7070
+#define MODEM_PWR                   4
+#define MODEM_BAUD                  9600
+#define SIM7070_MODEM_CONFIGURATION false
+#define SIM7070_RESTORE_TO_DEFAULT  false
 
 
 /* energy optimization */
 #define uS_TO_S_FACTOR              1000000     // conversion factor from micro seconds to seconds
-#define TIME_TO_SLEEP               900          // sleeping time in seconds
+#define TIME_TO_SLEEP               300         // sleeping time in seconds
 #define BATTERY_VOLTAGE_ADC_PIN     34          // collision with HX711 DATA!
 
 
@@ -48,8 +58,9 @@
 #define HX711_CLOCK                 22
 #define HX711_READ_SAMPLES          11          // should be an odd number!
 #define HX711_LOAD_CELL_TYPE        2
-#define HX711_OFFSET                39757
-#define HX711_SCALE_FACTOR          21.732576
+#define HX711_OFFSET                342964
+#define HX711_SCALE_FACTOR          22.060591
+
 
 // blink LED count-times
 inline void blink_onboard_led(unsigned int count) 

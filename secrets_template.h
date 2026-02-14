@@ -7,6 +7,10 @@
 #define WIFI_PASSKEY                ""
 
 
+/* LTE MODEM */
+#define THINGSPEAK_WRITE_API_KEY    ""
+
+
 /* MQTT */
 #define MQTT_BROKER                 ""
 #define MQTT_PORT                   
