@@ -29,7 +29,7 @@
 /* energy optimization */
 #define uS_TO_S_FACTOR              1000000     // conversion factor from micro seconds to seconds
 #define TIME_TO_SLEEP               300         // sleeping time in seconds
-#define BATTERY_VOLTAGE_ADC_PIN     34          // collision with HX711 DATA!
+#define BATTERY_VOLTAGE_ADC_PIN     34 
 
 
 /* AM2320 temperature and humidity sensors */ 

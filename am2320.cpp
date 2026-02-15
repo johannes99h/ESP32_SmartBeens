@@ -52,6 +52,8 @@ int am2320_get_sensor_vals( void )
             Serial.printf("Temperature: %.1f °C, Humidity: %.1f %%\n\r", am2320_1_data.temperature, am2320_1_data.humidity);
         }
     } else {
+        am2320_1_data.temperature = -99.9; 
+        am2320_1_data.humidity = -99.9;
         Serial.printf("Error %d while reading AM2320 no.1.\n\r", am2320_1_data.debug_val);
     }
 
@@ -70,6 +72,8 @@ int am2320_get_sensor_vals( void )
             Serial.printf("Temperature: %.1f °C, Humidity: %.1f %%\n\r", am2320_2_data.temperature, am2320_2_data.humidity);
         }
     } else {
+        am2320_2_data.temperature = -99.9; 
+        am2320_2_data.humidity = -99.9;
         Serial.printf("Error %d while reading AM2320 no.2.\n\r", am2320_2_data.debug_val);
     }
 
@@ -88,6 +92,8 @@ int am2320_get_sensor_vals( void )
             Serial.printf("Temperature: %.1f °C, Humidity: %.1f %%\n\r", am2320_3_data.temperature, am2320_3_data.humidity);
         }
     } else {
+        am2320_3_data.temperature = -99.9; 
+        am2320_3_data.humidity = -99.9;
         Serial.printf("Error %d while reading AM2320 no.3.\n\r", am2320_3_data.debug_val);
     }
 

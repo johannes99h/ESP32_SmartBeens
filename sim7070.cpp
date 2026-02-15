@@ -12,17 +12,22 @@ const char* API_KEY = THINGSPEAK_WRITE_API_KEY;
 
 
 void sim7070_init() {
-  if (_DEBUG) { Serial.printf("Initializing SIM7070G for demonstrational HTTP Post to ThingSpeak...\n\r"); }
+  if (_DEBUG) { Serial.printf("Initializing SIM7070G...\n\r"); }
   
   // set PWR GPIO 
   pinMode(MODEM_PWR, OUTPUT); 
   digitalWrite(MODEM_PWR, LOW); 
+  delay(1000); 
 
   sim7070_pwr_up(); 
   
   // open (software) serial connection to modem
-  sim7070.begin(MODEM_BAUD); 
-  delay(1000);
+  if (1 == boot_count) { 
+    sim7070.begin(MODEM_BAUD); 
+    delay(1000);
+  }
+
+  // sim7070_pwr_down(); 
 }
 
 
@@ -93,8 +98,9 @@ void sim7070_modem_check() {
 }
 
 
-void sim7070_wait_for_network_conn(unsigned long timeout_ms = 30000) { // 30s max
+int sim7070_wait_for_network_conn(unsigned long timeout_ms = 30000) { // 30s max
   unsigned long t0 = millis();
+  Serial.println(">> AT+CEREG?");
   while (millis() - t0 < timeout_ms) {
     sim7070.println("AT+CEREG?");
     delay(500);                           // allow modem to respond
@@ -106,12 +112,14 @@ void sim7070_wait_for_network_conn(unsigned long timeout_ms = 30000) { // 30s ma
 
       if (line.indexOf("+CEREG: 0,1") >= 0 || line.indexOf("+CEREG: 0,5") >= 0) {
         Serial.println("Network registered!");
-        return;
+        return -1;
       }
     }
     delay(1000);                          // wait a bit before next query
   }
   Serial.println("Timeout waiting for network registration!");
+
+  return 0; 
 }
 
 
@@ -159,9 +167,9 @@ void sim7070_network_config() {
 }
 
 
-void sim7070_network_check() {
+int sim7070_network_check() {
   // check network registration
-  sim7070_wait_for_network_conn(); 
+  if (-1 == sim7070_wait_for_network_conn()) { return -1; }
   sim7070_sent_AT_cmd("AT+CPSI?");
   sim7070_sent_AT_cmd("AT+CASTATE?");
 }
@@ -198,27 +206,7 @@ bool sim7070_check_for_active_PDP() {
 }
 
 
-http_request sim7070_prepare_http_get_request(int field_num, float data) {
-  http_request req; 
-
-  req.length = snprintf(req.buffer, sizeof(req.buffer),
-                           "GET /update?api_key=%s&field%d=%.2f HTTP/1.0\r\n"
-                           "Host: api.thingspeak.com\r\n\r\n",
-                           API_KEY, field_num, data);
-
-  if (req.length >= sizeof(req.buffer)) {
-    Serial.printf("WARNING: HTTP buffer truncated!\n\r");
-    req.length = sizeof(req.buffer) - 1;
-  }
-
-  if (_DEBUG) { Serial.printf("HTTP GET request to be send: %s\n\r", req.buffer); }
-
-  return req;
-}
-
-void sim7070_http_post_to_thingspeak() {
-  http_request req = sim7070_prepare_http_get_request(2, 42.69);                    // TODO: make posting multiple field updates at once possible
-
+void sim7070_http_post_to_thingspeak(const http_request& req) {
   sim7070_activate_PDP();
 
   // open TCP socket
@@ -237,7 +225,7 @@ void sim7070_http_post_to_thingspeak() {
   }
 
   if (!socketOpen) {
-    Serial.println("Failed to open TCP socket");
+    Serial.println("Failed to open TCP socket.");
     return;
   }
 
@@ -266,11 +254,17 @@ void sim7070_http_post_to_thingspeak() {
   }
 
   if (promptFound) {
+    if (req.length <= 0 || req.length >= sizeof(req.buffer)) {
+      Serial.println("Invalid HTTP request length!");
+      return;
+    }
+    
     sim7070.print(req.buffer);
     sim7070.write(0x1A);  // end sending promt with Ctrl+Z
     delay(5000);          // wait for response
 
     Serial.println("Response from ThingSpeak:");
+    // UNSAFE !!! 
     while (sim7070.available()) {
       String line = sim7070.readStringUntil('\n');            // TODO: replace String with char[], since String uses heap! 
       line.trim();
@@ -278,6 +272,29 @@ void sim7070_http_post_to_thingspeak() {
         Serial.println(line);
       }
     }
+    /*
+    char line[128];
+    int idx = 0;
+
+    while (sim7070.available()) {
+        char c = sim7070.read();
+
+        if (c == '\r') continue;
+
+        if (c == '\n') {
+            if (idx > 0) {
+                line[idx] = '\0';
+                Serial.println(line);
+                idx = 0;
+            }
+        } else {
+            if (idx < sizeof(line) - 1) {
+                line[idx++] = c;
+            }
+        }
+    }
+    */
+
   } else {
     Serial.println("No prompt '>' received for CASEND");
   }
@@ -290,11 +307,61 @@ void sim7070_http_post_to_thingspeak() {
 }
 
 
+void sim7070_prepare_single_sensor_data_for_http_post(int field_num, float data) {
+  http_request req; 
+
+  // prepare HTTP GET
+  req.length = snprintf(req.buffer, sizeof(req.buffer),
+                        "GET /update?api_key=%s&field%d=%.2f HTTP/1.0\r\n"
+                        "Host: api.thingspeak.com\r\n\r\n",
+                        API_KEY, field_num, data);
+
+  if (req.length >= sizeof(req.buffer)) {
+    Serial.printf("WARNING: HTTP buffer truncated!\n\r");
+    req.length = sizeof(req.buffer) - 1;
+  }
+
+  if (_DEBUG) { Serial.printf("HTTP GET request to be send: %s\n\r", req.buffer); }
+  
+  // conduct HTTP request 
+  sim7070_http_post_to_thingspeak(req); 
+
+  return;
+}
+
+
+void sim7070_prepare_all_sensor_data_for_http_post(float batt_voltage, float weight, const struct data& am2320_1, const struct data& am2320_2, const struct data& am2320_3) {
+  http_request req; 
+
+  // prepare HTTP GET
+  req.length = snprintf(req.buffer, sizeof(req.buffer),
+                        "GET /update?api_key=%s&field1=%.2f&field2=%.2f&field3=%.2f&field4=%.2f&field5=%.2f&field6=%.2f&field7=%.2f&field8=%.2f HTTP/1.0\r\n"
+                        "Host: api.thingspeak.com\r\n\r\n",
+                        API_KEY, batt_voltage, weight, am2320_1.temperature, am2320_1.humidity, am2320_2.temperature, 
+                        am2320_2.humidity, am2320_3.temperature, am2320_3.humidity);
+
+  if (req.length >= sizeof(req.buffer)) {
+    Serial.printf("WARNING: HTTP buffer truncated!\n\r");
+    req.length = sizeof(req.buffer) - 1;
+  }
+
+  if (_DEBUG) { Serial.printf("HTTP GET request to be send: %s\n\r", req.buffer); }
+
+  // conduct HTTP request 
+  sim7070_http_post_to_thingspeak(req); 
+
+  return; 
+}
+
+
+
 void sim7070_deinit() {
+  if (_DEBUG) { Serial.printf("Trying to power down SIM7070G.\n\r"); }
   sim7070_pwr_down(); 
+  delay(1000); 
   
   // close (software) serial connection to modem
-  sim7070.end();   
+  // sim7070.end();                                           // TODO: find out, why this causes an exception!
 }
 
 

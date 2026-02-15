@@ -117,7 +117,7 @@ float get_battery_voltage() {
 int prepare_deep_sleep() {
   esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
 
-  am2320_deinit();
+  // am2320_deinit();      // currently doesn't do anything, but crashes uC!
   sd_card_deinit();
   gpio_deinit();
 
@@ -127,7 +127,7 @@ int prepare_deep_sleep() {
     digitalWrite(ONBOARD_LED, LOW);
   }
 
-  Serial.println("Going to sleep now, will wake in " + String(TIME_TO_SLEEP) + " seconds.");
+  Serial.printf("Going to sleep now, will wake in %d seconds.", TIME_TO_SLEEP);
   Serial.println("---------------------");
   delay(1000);
   Serial.flush();
@@ -137,5 +137,5 @@ int prepare_deep_sleep() {
 
   esp_deep_sleep_start();
 
-  return 0;
+  return 0;   // will never be reached!
 }
