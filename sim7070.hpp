@@ -14,6 +14,7 @@ struct http_request {
 
 
 void sim7070_init(); 
+bool sim7070_is_alive(); 
 void sim7070_pwr_up();
 void sim7070_sent_AT_cmd(const char *cmd, unsigned long timeout_ms) ;
 void sim7070_modem_check();
@@ -25,7 +26,6 @@ bool sim7070_check_for_active_PDP();
 void sim7070_http_post_to_thingspeak(const http_request& req);
 void sim7070_prepare_single_sensor_data_for_http_post(int field_num, float data); 
 void sim7070_prepare_all_sensor_data_for_http_post(float batt_voltage, float weight, const struct data& am2320_1, const struct data& am2320_2, const struct data& am2320_3); 
-void sim7070_deinit();
 void sim7070_pwr_down();
 
 

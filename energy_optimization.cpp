@@ -58,37 +58,62 @@ int print_wakeup_reason() {
 
 
 int gpio_init() {
-  // set PWR GPIO 
+  // disable GPIO hold during deep sleep
+  gpio_deep_sleep_hold_dis();
+  
+  // power pin for LTE module
+  gpio_hold_dis((gpio_num_t)MODEM_PWR);
   pinMode(MODEM_PWR, OUTPUT); 
   digitalWrite(MODEM_PWR, LOW); 
-  
-  // hold pin low during deep sleep
-  // gpio_deep_sleep_hold_en();
-  // gpio_hold_en((gpio_num_t) MODEM_PWR);  
-  
+  gpio_hold_en((gpio_num_t) MODEM_PWR);  
+
+  // ADC for battery voltage
   pinMode(ONBOARD_LED, OUTPUT);
   pinMode(BATTERY_VOLTAGE_ADC_PIN, INPUT);
 
   if (TRANSISTORS_USED) {
+    // 3V3 SD card supply
+    gpio_hold_dis((gpio_num_t)SENSOR_SUPPLY_3V3);
     pinMode(SENSOR_SUPPLY_3V3, OUTPUT);
-    pinMode(SENSOR_SUPPLY_5V, OUTPUT);
     digitalWrite(SENSOR_SUPPLY_3V3, HIGH);
+    gpio_hold_en((gpio_num_t) SENSOR_SUPPLY_3V3); 
+
+    // 5V sensor supply
+    gpio_hold_dis((gpio_num_t)SENSOR_SUPPLY_5V);
+    pinMode(SENSOR_SUPPLY_5V, OUTPUT);
     digitalWrite(SENSOR_SUPPLY_5V, HIGH);
+    gpio_hold_en((gpio_num_t) SENSOR_SUPPLY_5V); 
   }
 
   delay(500);
+
+  // enable GPIO hold during deep sleep
+  gpio_deep_sleep_hold_en();
 
   return 0;
 }
 
 
 int gpio_deinit() {
+  // disable GPIO hold during deep sleep
+  gpio_deep_sleep_hold_dis();
+
   if (TRANSISTORS_USED) {
+    // disable 5V sensor supply
+    gpio_hold_dis((gpio_num_t)SENSOR_SUPPLY_5V);
     digitalWrite(SENSOR_SUPPLY_5V, LOW);
+    gpio_hold_en((gpio_num_t) SENSOR_SUPPLY_5V); 
+    
+    // disable 3V3 SD card supply
+    gpio_hold_dis((gpio_num_t)SENSOR_SUPPLY_3V3);
     digitalWrite(SENSOR_SUPPLY_3V3, LOW);
+    gpio_hold_en((gpio_num_t) SENSOR_SUPPLY_3V3); 
   }
 
-  delay(100);
+  delay(500);
+
+  // enable GPIO hold during deep sleep
+  gpio_deep_sleep_hold_en();
 
   return 0;
 }

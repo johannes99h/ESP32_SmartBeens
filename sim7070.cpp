@@ -5,13 +5,8 @@
 #include "soc/rtc.h"
 #include "driver/rtc_io.h"
 
-
-#include <SoftwareSerial.h>
-
-
-// SoftwareSerial sim7070(16, 17);
-// SoftwareSerial sim7070(MODEM_RX, MODEM_TX);
-HardwareSerial sim7070(2);  // UART2
+// UART2 on pin 16 & 17 (only usable, if these pins are used as RX/TX)
+HardwareSerial sim7070(2);
 
 const char* API_KEY = THINGSPEAK_WRITE_API_KEY;
 
@@ -19,36 +14,63 @@ const char* API_KEY = THINGSPEAK_WRITE_API_KEY;
 void sim7070_init() {
   if (_DEBUG) { Serial.printf("Initializing SIM7070G...\n\r"); }
 
-  sim7070_pwr_up();
+  // open serial connection to modem
+  sim7070.begin(9600, SERIAL_8N1, MODEM_RX, MODEM_TX);
 
-  // open (software) serial connection to modem
-  // if (1 == boot_count) {
-    // sim7070.begin(MODEM_BAUD);
-    sim7070.begin(9600, SERIAL_8N1, 16, 17);
 
+  if (!sim7070_is_alive()) {
+    sim7070_pwr_up();
+
+    // wait for modem to become ready after boot
     int retry_count = 0;
-    while (!sim7070.available() && retry_count < 10) {
+    while (!sim7070_is_alive() && retry_count < 10) {
       delay(500);
       retry_count++;
+    } 
+
+    if (10 >= retry_count) { 
+      if (_DEBUG) { Serial.printf("SIM7070G did not respond after pwr pulse!\n\r"); }
     }
-  // }
+  } else {
+    if (_DEBUG) { Serial.printf("SIM7070G already alive, skipping pwr pulse.\n\r"); }
+  }
+
+  int retry_count = 0;
+  while (!sim7070.available() && retry_count < 10) {
+    delay(500);
+    retry_count++;
+  }
 }
 
 
-void sim7070_pwr_up() {
-  // disable holding pins during deep sleep -> not needed anymore, since power supply is cut off during deep sleep
-  // gpio_hold_dis((gpio_num_t)MODEM_PWR);
-  // gpio_deep_sleep_hold_dis();
+bool sim7070_is_alive() {
+  while (sim7070.available()) { sim7070.read(); }         
 
+  sim7070.println("AT");
+  unsigned long t0 = millis();
+  while (millis() - t0 < 2000) {
+    if (sim7070.available()) {
+      while (sim7070.available()) { sim7070.read(); }  
+      return true;
+    }
+  }
+  return false;
+}
+
+void sim7070_pwr_up() {
+  // disable holding pins during deep sleep
+  gpio_deep_sleep_hold_dis();
+  gpio_hold_dis((gpio_num_t)MODEM_PWR);
+  
   // toggle PWR pin
   digitalWrite(MODEM_PWR, HIGH);
-  delay(1000);
+  delay(1500);
   digitalWrite(MODEM_PWR, LOW);
-  delay(1000);
+  delay(1500);
 
-  // hold pin low during deep sleep -> not needed anymore, since power supply is cut off during deep sleep
-  // gpio_deep_sleep_hold_en();
-  // gpio_hold_en((gpio_num_t)MODEM_PWR);
+  // hold pin low during deep sleep
+  gpio_hold_en((gpio_num_t)MODEM_PWR);
+  gpio_deep_sleep_hold_en();
 }
 
 
@@ -373,29 +395,44 @@ void sim7070_prepare_all_sensor_data_for_http_post(float batt_voltage, float wei
 }
 
 
-void sim7070_deinit() {
-  sim7070_pwr_down();
-  delay(1000);
-
-  // close (software) serial connection to modem
-  // sim7070.end();                                           // TODO: find out, why this causes an exception!
-}
-
-
 void sim7070_pwr_down() {
-  // disable holding pins during deep sleep
-  // gpio_hold_dis((gpio_num_t)MODEM_PWR);
-  // gpio_deep_sleep_hold_dis();
-  
-  sim7070.end(); 
+  bool modem_alive = false;
 
-  // toggle PWR pin
-  digitalWrite(MODEM_PWR, HIGH);
-  delay(1000);
-  digitalWrite(MODEM_PWR, LOW);
-  delay(2000);
+  // // check, if modem is still alive
+  // sim7070_send_AT_cmd("AT");
+  // unsigned long t0 = millis();
+  // while (millis() - t0 < 1000) {
+  //   if (sim7070.available()) {
+  //     modem_alive = true;
+  //     while (sim7070.available()) sim7070.read();  // clear buffer
+  //     break;
+  //   }
+  // }
 
-  // hold pin low during deep sleep
-  // gpio_deep_sleep_hold_en();
-  // gpio_hold_en((gpio_num_t)MODEM_PWR);
+  // if (modem_alive) {
+  if (sim7070_is_alive()) {
+    Serial.printf("LTE modem is still alive, shutdown via AT command.\n\r"); 
+    // safer way for powering down modem
+    sim7070.println("AT+CPOWD=1");
+    delay(3000); 
+  } else {
+    Serial.printf("LTE modem is not alive, shutdown via PWR pulse.\n\r"); 
+    
+    // disable holding pins during deep sleep
+    gpio_hold_dis((gpio_num_t)MODEM_PWR);
+    gpio_deep_sleep_hold_dis();
+    
+    // only fallback: shut module down with power pulse, if it doesn't react on AT pwr down 
+    digitalWrite(MODEM_PWR, HIGH);
+    delay(1500);
+    digitalWrite(MODEM_PWR, LOW);
+    delay(3000);
+
+    // hold pin low during deep sleep
+    gpio_deep_sleep_hold_en();
+    gpio_hold_en((gpio_num_t)MODEM_PWR);
+  }
+
+  // close UART for SIM module
+  sim7070.end();
 }

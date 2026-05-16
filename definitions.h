@@ -18,8 +18,8 @@
 
 
 /* SIM7070G LTE modem */
-#define MODEM_RX                    D11          // RX pin from ESP32 → TX of SIM7070
-#define MODEM_TX                    D10          // TX pin from ESP32 → RX of SIM7070
+#define MODEM_RX                    D11          // RX pin from ESP32 (16/D11) → TX of SIM7070
+#define MODEM_TX                    D10          // TX pin from ESP32 (17/D10) → RX of SIM7070
 #define MODEM_PWR                   D2         
 #define MODEM_BAUD                  9600
 #define SIM7070_MODEM_CONFIGURATION false
@@ -28,15 +28,15 @@
 
 /* energy optimization */
 #define uS_TO_S_FACTOR              1000000     // conversion factor from micro seconds to seconds
-#define TIME_TO_SLEEP               30         // sleeping time in seconds
+#define TIME_TO_SLEEP               600         // sleeping time in seconds
 #define BATTERY_VOLTAGE_ADC_PIN     34 
 
 
 /* AM2320 temperature and humidity sensors */ 
-#define AM2320_1_DATA_PIN           D13         // COLLISION WITH SIM7070G UART, DON'T USE!
+#define AM2320_1_DATA_PIN           D12
 #define AM2320_1_HUMIDITY_OFFSET    0
 #define AM2320_1_TEMPERATURE_OFFSET 0
-#define AM2320_2_DATA_PIN           D13        // COLLISION WITH SIM7070G UART, DON'T USE!
+#define AM2320_2_DATA_PIN           D13
 #define AM2320_2_HUMIDITY_OFFSET    0
 #define AM2320_2_TEMPERATURE_OFFSET 0
 #define AM2320_3_DATA_PIN           D13

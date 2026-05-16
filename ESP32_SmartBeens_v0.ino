@@ -62,16 +62,12 @@ int init_peripherals()
   }
 
   
-  if (LTE_MODEM_USED) {
-    // sim7070_pwr_up(); 
-
-    if (SIM7070_MODEM_CONFIGURATION) { 
-      sim7070_init();
-      // /* sim7070_network_config(); */     // not recommended: not sure, if modem still works after that!
-      sim7070_modem_check(); 
-      sim7070_network_check();    
-      sim7070_deinit(); 
-    }
+  if (LTE_MODEM_USED && SIM7070_MODEM_CONFIGURATION) { 
+    sim7070_init();
+    // /* sim7070_network_config(); */     // not recommended: not sure, if modem still works after that!
+    sim7070_modem_check(); 
+    sim7070_network_check();    
+    sim7070_pwr_down(); 
   }
 
   return 0;
@@ -160,12 +156,11 @@ int runtime_routine()
   }
 
   if (LTE_MODEM_USED) {
-    // sim7070_pwr_up(); 
     sim7070_init();
     sim7070_modem_check(); 
     if (0 == sim7070_network_check()) { 
       sim7070_prepare_all_sensor_data_for_http_post(batt_voltage, weight, am2320_1_data, am2320_2_data, am2320_3_data);
-      sim7070_deinit(); 
+      sim7070_pwr_down(); 
     }
   }
 
