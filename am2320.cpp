@@ -5,9 +5,9 @@
 
 
 // TODO: add global define for sensor count, so only necessary objects are initialized
-DHTNEW am2320_1(AM2320_1_DATA_PIN); // pin D25
-DHTNEW am2320_2(AM2320_2_DATA_PIN); // pin D26
-DHTNEW am2320_3(AM2320_3_DATA_PIN); // pin D27
+DHTNEW am2320_1(AM2320_1_DATA_PIN); // pin 25
+DHTNEW am2320_2(AM2320_2_DATA_PIN); // pin 26
+DHTNEW am2320_3(AM2320_3_DATA_PIN); // pin 27
 
 
 struct data am2320_1_data;

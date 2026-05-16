@@ -58,14 +58,22 @@ int print_wakeup_reason() {
 
 
 int gpio_init() {
+  // set PWR GPIO 
+  pinMode(MODEM_PWR, OUTPUT); 
+  digitalWrite(MODEM_PWR, LOW); 
+  
+  // hold pin low during deep sleep
+  // gpio_deep_sleep_hold_en();
+  // gpio_hold_en((gpio_num_t) MODEM_PWR);  
+  
   pinMode(ONBOARD_LED, OUTPUT);
   pinMode(BATTERY_VOLTAGE_ADC_PIN, INPUT);
 
   if (TRANSISTORS_USED) {
     pinMode(SENSOR_SUPPLY_3V3, OUTPUT);
-    // pinMode(SENSOR_SUPPLY_5V, OUTPUT);
+    pinMode(SENSOR_SUPPLY_5V, OUTPUT);
     digitalWrite(SENSOR_SUPPLY_3V3, HIGH);
-    // digitalWrite(SENSOR_SUPPLY_5V, HIGH);
+    digitalWrite(SENSOR_SUPPLY_5V, HIGH);
   }
 
   delay(500);
@@ -76,7 +84,7 @@ int gpio_init() {
 
 int gpio_deinit() {
   if (TRANSISTORS_USED) {
-    // digitalWrite(SENSOR_SUPPLY_5V, LOW);
+    digitalWrite(SENSOR_SUPPLY_5V, LOW);
     digitalWrite(SENSOR_SUPPLY_3V3, LOW);
   }
 
@@ -121,13 +129,13 @@ int prepare_deep_sleep() {
   sd_card_deinit();
   gpio_deinit();
 
-  // heartbeat LED
-  if (_DEBUG) {
-    blink_onboard_led(3);
-    digitalWrite(ONBOARD_LED, LOW);
-  }
+  // // heartbeat LED
+  // if (_DEBUG) {
+  //   blink_onboard_led(3);
+  //   digitalWrite(ONBOARD_LED, LOW);
+  // }
 
-  Serial.printf("Going to sleep now, will wake in %d seconds.", TIME_TO_SLEEP);
+  Serial.printf("Going to sleep now, will wake in %d seconds.\n\r", TIME_TO_SLEEP);
   Serial.println("---------------------");
   delay(1000);
   Serial.flush();

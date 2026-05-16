@@ -15,6 +15,8 @@ RTC_DATA_ATTR unsigned long long boot_count = 0;              // wakeup cycle co
 RTC_DATA_ATTR unsigned long long time_since_start = 0;        // time since start of measurement
 
 
+bool SD_CARD_INIT_SUCCESSFULL = false; 
+
 extern struct data am2320_1_data;
 extern struct data am2320_2_data;
 extern struct data am2320_3_data;
@@ -23,7 +25,7 @@ extern struct data am2320_3_data;
 void setup() {
     wake_up_from_deep_sleep();
     init_peripherals();
-    runtime_routine();
+    runtime_routine(); 
     prepare_deep_sleep();
 }
 
@@ -41,14 +43,15 @@ int init_peripherals()
   }
 
   // initialize connected sensors
-  if (-1 == sd_card_init()) { prepare_deep_sleep(); }
+  if (-1 == sd_card_init()) { /* prepare_deep_sleep(); */ }
+  else { SD_CARD_INIT_SUCCESSFULL = true; }
   if (USED_MHZ19C) { mhz19_init(); }                         // will take 60s to warm up
   if (USED_MHZ19E) { mhz19e_init(); }
   am2320_init();                                             // TODO: differentiate between different numbers of sensors
   if (1 != boot_count) { hx711_init(); }
 
   // init SD card on first power-on
-  if (1 == boot_count) {
+  if (1 == boot_count && true == SD_CARD_INIT_SUCCESSFULL) {
     current_file_idx = sd_card_create_new_log_file();
     sd_card_create_new_config_file(current_file_idx, "YYMMDD-hh:mm:ss");
 
@@ -58,12 +61,17 @@ int init_peripherals()
     }
   }
 
+  
   if (LTE_MODEM_USED) {
-  //     sim7070_init();
-  //   sim7070_modem_check(); 
-  //   sim7070_network_check(); 
-  //   if (SIM7070_MODEM_CONFIGURATION) { /* sim7070_network_config(); */ }  // not recommended: not sure, if modem still works after that!
-  //   sim7070_deinit(); 
+    // sim7070_pwr_up(); 
+
+    if (SIM7070_MODEM_CONFIGURATION) { 
+      sim7070_init();
+      // /* sim7070_network_config(); */     // not recommended: not sure, if modem still works after that!
+      sim7070_modem_check(); 
+      sim7070_network_check();    
+      sim7070_deinit(); 
+    }
   }
 
   return 0;
@@ -141,14 +149,18 @@ int runtime_routine()
   if (1 != boot_count) { weight = hx711_get_weight(); }
   batt_voltage = get_battery_voltage();
 
-  if (RTC_USED) { 
-    String timestamp = rtc_get_timestamp();
-    sd_prepare_rtc_data_log(timestamp, time_since_start, am2320_1_data, am2320_2_data, am2320_3_data, co2_ppm, co2_temperature, weight, batt_voltage); 
-  } else {
-    sd_prepare_data_log(time_since_start, am2320_1_data, am2320_2_data, am2320_3_data, co2_ppm, co2_temperature, weight, batt_voltage);
+  if (true == SD_CARD_INIT_SUCCESSFULL)
+  {
+    if (RTC_USED) { 
+      String timestamp = rtc_get_timestamp();
+      sd_prepare_rtc_data_log(timestamp, time_since_start, am2320_1_data, am2320_2_data, am2320_3_data, co2_ppm, co2_temperature, weight, batt_voltage); 
+    } else {
+      sd_prepare_data_log(time_since_start, am2320_1_data, am2320_2_data, am2320_3_data, co2_ppm, co2_temperature, weight, batt_voltage);
+    }
   }
 
   if (LTE_MODEM_USED) {
+    // sim7070_pwr_up(); 
     sim7070_init();
     sim7070_modem_check(); 
     if (0 == sim7070_network_check()) { 
@@ -156,6 +168,8 @@ int runtime_routine()
       sim7070_deinit(); 
     }
   }
+
+  gpio_deinit();
 
   return 0;
 }
