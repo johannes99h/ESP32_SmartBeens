@@ -28,7 +28,7 @@
 
 /* energy optimization */
 #define uS_TO_S_FACTOR              1000000     // conversion factor from micro seconds to seconds
-#define TIME_TO_SLEEP               600         // sleeping time in seconds
+#define TIME_TO_SLEEP               1200        // sleeping time in seconds
 #define BATTERY_VOLTAGE_ADC_PIN     34 
 
 
@@ -39,7 +39,7 @@
 #define AM2320_2_DATA_PIN           D13
 #define AM2320_2_HUMIDITY_OFFSET    0
 #define AM2320_2_TEMPERATURE_OFFSET 0
-#define AM2320_3_DATA_PIN           D13
+#define AM2320_3_DATA_PIN           D12
 #define AM2320_3_HUMIDITY_OFFSET    0
 #define AM2320_3_TEMPERATURE_OFFSET 0
 

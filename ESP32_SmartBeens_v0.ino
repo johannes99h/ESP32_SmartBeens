@@ -145,8 +145,7 @@ int runtime_routine()
   if (1 != boot_count) { weight = hx711_get_weight(); }
   batt_voltage = get_battery_voltage();
 
-  if (true == SD_CARD_INIT_SUCCESSFULL)
-  {
+  if (true == SD_CARD_INIT_SUCCESSFULL) {
     if (RTC_USED) { 
       String timestamp = rtc_get_timestamp();
       sd_prepare_rtc_data_log(timestamp, time_since_start, am2320_1_data, am2320_2_data, am2320_3_data, co2_ppm, co2_temperature, weight, batt_voltage); 
