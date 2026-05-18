@@ -371,15 +371,21 @@ void sim7070_prepare_single_sensor_data_for_http_post(int field_num, float data)
 }
 
 
-void sim7070_prepare_all_sensor_data_for_http_post(float batt_voltage, float weight, const struct data& am2320_1, const struct data& am2320_2, const struct data& am2320_3) {
+// void sim7070_prepare_all_sensor_data_for_http_post(float batt_voltage, float weight, const struct data& am2320_1, const struct data& am2320_2, const struct data& am2320_3) {
+void sim7070_prepare_all_sensor_data_for_http_post(float batt_voltage, float weight, const struct data& am2320_1, const struct data& am2320_2) {
   http_request req;
 
   // prepare HTTP GET
+  // req.length = snprintf(req.buffer, sizeof(req.buffer),
+  //                       "GET /update?api_key=%s&field1=%.2f&field2=%.2f&field3=%.2f&field4=%.2f&field5=%.2f&field6=%.2f&field7=%.2f&field8=%.2f HTTP/1.0\r\n"
+  //                       "Host: api.thingspeak.com\r\n\r\n",
+  //                       API_KEY, batt_voltage, weight, am2320_1.temperature, am2320_1.humidity, am2320_2.temperature,
+  //                       am2320_2.humidity, am2320_3.temperature, am2320_3.humidity);
   req.length = snprintf(req.buffer, sizeof(req.buffer),
                         "GET /update?api_key=%s&field1=%.2f&field2=%.2f&field3=%.2f&field4=%.2f&field5=%.2f&field6=%.2f&field7=%.2f&field8=%.2f HTTP/1.0\r\n"
                         "Host: api.thingspeak.com\r\n\r\n",
                         API_KEY, batt_voltage, weight, am2320_1.temperature, am2320_1.humidity, am2320_2.temperature,
-                        am2320_2.humidity, am2320_3.temperature, am2320_3.humidity);
+                        am2320_2.humidity, -99.9, -99.9);
 
   if (req.length >= sizeof(req.buffer)) {
     Serial.printf("WARNING: HTTP buffer truncated!\n\r");

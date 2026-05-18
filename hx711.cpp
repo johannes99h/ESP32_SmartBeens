@@ -9,12 +9,16 @@ HX711 scale;
 void hx711_init( void ) 
 {
   scale.begin(HX711_DATA, HX711_CLOCK);
+  delay(500); 
+
+  // check every 500ms for three times if scale is ready
+  scale.wait_ready_retry(3, 500);
 
   scale.set_offset(HX711_OFFSET);
   scale.set_scale(HX711_SCALE_FACTOR);
+  delay(500); 
 
   Serial.printf("HX711 initialized with Scale Factor: %.6f and Offset: %d\n\r", HX711_SCALE_FACTOR, HX711_OFFSET);
-
 }
 
 

@@ -25,7 +25,8 @@ void sim7070_activate_PDP();
 bool sim7070_check_for_active_PDP();
 void sim7070_http_post_to_thingspeak(const http_request& req);
 void sim7070_prepare_single_sensor_data_for_http_post(int field_num, float data); 
-void sim7070_prepare_all_sensor_data_for_http_post(float batt_voltage, float weight, const struct data& am2320_1, const struct data& am2320_2, const struct data& am2320_3); 
+// void sim7070_prepare_all_sensor_data_for_http_post(float batt_voltage, float weight, const struct data& am2320_1, const struct data& am2320_2, const struct data& am2320_3); 
+void sim7070_prepare_all_sensor_data_for_http_post(float batt_voltage, float weight, const struct data& am2320_1, const struct data& am2320_2); 
 void sim7070_pwr_down();
 
 

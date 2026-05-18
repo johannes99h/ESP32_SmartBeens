@@ -86,9 +86,9 @@ void sd_card_create_new_config_file(int file_idx, String timestamp)
   myFile.printf("AM2320 sensor 2 (pin %d) \n\r", AM2320_2_DATA_PIN);
   myFile.printf(" - Temperature Offset: %.1f \n\r", AM2320_2_TEMPERATURE_OFFSET);
   myFile.printf(" - Humidity Offset: %.1f \n\r", AM2320_2_HUMIDITY_OFFSET);  
-  myFile.printf("AM2320 sensor 3 (pin %d) \n\r", AM2320_3_DATA_PIN);
-  myFile.printf(" - Temperature Offset: %.1f \n\r", AM2320_3_TEMPERATURE_OFFSET);
-  myFile.printf(" - Humidity Offset: %.1f \n\r", AM2320_3_HUMIDITY_OFFSET);  
+  // myFile.printf("AM2320 sensor 3 (pin %d) \n\r", AM2320_3_DATA_PIN);
+  // myFile.printf(" - Temperature Offset: %.1f \n\r", AM2320_3_TEMPERATURE_OFFSET);
+  // myFile.printf(" - Humidity Offset: %.1f \n\r", AM2320_3_HUMIDITY_OFFSET);  
 
   // HX711 configuration
   myFile.printf("Weight sensor: HX711 \n\r");

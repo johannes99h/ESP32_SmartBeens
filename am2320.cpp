@@ -5,14 +5,14 @@
 
 
 // TODO: add global define for sensor count, so only necessary objects are initialized
-DHTNEW am2320_1(AM2320_1_DATA_PIN); // pin 25
-DHTNEW am2320_2(AM2320_2_DATA_PIN); // pin 26
-DHTNEW am2320_3(AM2320_3_DATA_PIN); // pin 27
+DHTNEW am2320_1(AM2320_1_DATA_PIN); 
+DHTNEW am2320_2(AM2320_2_DATA_PIN); 
+// DHTNEW am2320_3(AM2320_3_DATA_PIN); 
 
 
 struct data am2320_1_data;
 struct data am2320_2_data;
-struct data am2320_3_data;
+// struct data am2320_3_data;
 
 
 int am2320_init( void )
@@ -20,12 +20,18 @@ int am2320_init( void )
     am2320_1.setType(22);
     if (0 != AM2320_1_HUMIDITY_OFFSET) { am2320_1.setHumOffset(AM2320_1_HUMIDITY_OFFSET); }
     if (0 != AM2320_1_TEMPERATURE_OFFSET) { am2320_1.setTempOffset(AM2320_1_TEMPERATURE_OFFSET); }
+    delay(500); 
+
     am2320_2.setType(22);
     if (0 != AM2320_2_HUMIDITY_OFFSET) { am2320_2.setHumOffset(AM2320_2_HUMIDITY_OFFSET); }
     if (0 != AM2320_2_TEMPERATURE_OFFSET) { am2320_2.setTempOffset(AM2320_2_TEMPERATURE_OFFSET); }
-    am2320_3.setType(22);
-    if (0 != AM2320_3_HUMIDITY_OFFSET) { am2320_3.setHumOffset(AM2320_3_HUMIDITY_OFFSET); }
-    if (0 != AM2320_3_TEMPERATURE_OFFSET) { am2320_3.setTempOffset(AM2320_3_TEMPERATURE_OFFSET); }
+    delay(500); 
+
+    // am2320_3.setType(22);
+    // if (0 != AM2320_3_HUMIDITY_OFFSET) { am2320_3.setHumOffset(AM2320_3_HUMIDITY_OFFSET); }
+    // if (0 != AM2320_3_TEMPERATURE_OFFSET) { am2320_3.setTempOffset(AM2320_3_TEMPERATURE_OFFSET); }
+    // delay(500); 
+    
     Serial.println("AM2320 initialized.");
     
     return 0;
@@ -79,23 +85,23 @@ int am2320_get_sensor_vals( void )
 
     delay(100);
 
-    // check status of third sensor
-    am2320_3_data.debug_val = am2320_3.read();
+    // // check status of third sensor
+    // am2320_3_data.debug_val = am2320_3.read();
 
-    if (0 == am2320_3_data.debug_val) {                         // equals DHTLIB_OK
-        am2320_3_data.temperature = am2320_3.getTemperature(); 
-        am2320_3_data.humidity = am2320_3.getHumidity();
+    // if (0 == am2320_3_data.debug_val) {                         // equals DHTLIB_OK
+    //     am2320_3_data.temperature = am2320_3.getTemperature(); 
+    //     am2320_3_data.humidity = am2320_3.getHumidity();
 
-        // TODO: wrap in debug macro
-        if (true) {
-            Serial.println("Data from AM2320 no.3");
-            Serial.printf("Temperature: %.1f °C, Humidity: %.1f %%\n\r", am2320_3_data.temperature, am2320_3_data.humidity);
-        }
-    } else {
-        am2320_3_data.temperature = -99.9; 
-        am2320_3_data.humidity = -99.9;
-        Serial.printf("Error %d while reading AM2320 no.3.\n\r", am2320_3_data.debug_val);
-    }
+    //     // TODO: wrap in debug macro
+    //     if (true) {
+    //         Serial.println("Data from AM2320 no.3");
+    //         Serial.printf("Temperature: %.1f °C, Humidity: %.1f %%\n\r", am2320_3_data.temperature, am2320_3_data.humidity);
+    //     }
+    // } else {
+    //     am2320_3_data.temperature = -99.9; 
+    //     am2320_3_data.humidity = -99.9;
+    //     Serial.printf("Error %d while reading AM2320 no.3.\n\r", am2320_3_data.debug_val);
+    // }
 
     delay(100);
 
