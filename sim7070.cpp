@@ -133,7 +133,11 @@ void sim7070_modem_check() {
   sim7070_send_AT_cmd("AT+CPIN?");
 
   // check signal quality
-  sim7070_send_AT_cmd("AT+CSQ");
+  // - return value: <rxlev>,<ber>,<rscp>,<ecno>,<rsrq>,<rsrp>
+  //                 GSM ----      UMTS ----     LTE -----
+  // - Reference Signal Received Power in dBm = -140 + rsrp:          very good, if > -90,  very bad if < -120
+  // - Reference Sginal Received Quality in dB = -19.5 + rsrq * 0.5:  good, if > -10,       bad if < -15
+  sim7070_send_AT_cmd("AT+CESQ");
 }
 
 
@@ -168,41 +172,90 @@ void sim7070_network_config() {
 
   if (SIM7070_RESTORE_TO_DEFAULT) { sim7070_send_AT_cmd("AT&F"); }
 
-  // configure LTE bands (in case, modem forgets which ones are available -> for O2, band 20 is primarily used)
-  sim7070_send_AT_cmd("AT+CBANDCFG=\"NB-IOT\",1,2,3,4,5,8,12,13,14,18,19,20,25,26,27,28,66,85");
+  // deactivate RF connection 
+  sim7070_send_AT_cmd("AT+CFUN=0");
+
+  // configure APN for ThingsMobile SIM card
+  sim7070_send_AT_cmd("AT+CGDCONT=1,\"IP\",\"TM\"");
+  
+  // configure LTE bands (in case, modem forgets which ones are available in Germany)
+  sim7070_send_AT_cmd("AT+CBANDCFG=\"CAT-M\",3,8,20");
+  sim7070_send_AT_cmd("AT+CBANDCFG=\"NB-IOT\",8,20");   // O2 NB-IoT vor allem B20, manchmal B8
 
   // choose LTE (38) mode over GPRS
   sim7070_send_AT_cmd("AT+CNMP=38");
 
-  // choose NB-IoT (2) over LTE CAT-M (1)
-  sim7070_send_AT_cmd("AT+CMNB=2");
+  // let modem chooose network type itself instead of fixing to NB-IoT (2) or LTE CAT-M (1)
+  sim7070_send_AT_cmd("AT+CMNB=3");
 
-  // configure APN for ThingsMobile SIM card
-  sim7070_send_AT_cmd("AT+CGDCONT=1,\"IP\",\"TM\"");
-
-  // enable GPRS/LTE registration reporting
-  sim7070_send_AT_cmd("AT+CREG=2");
+  // // enable GPRS/LTE registration reporting <- not needed, only for GPRS
+  // sim7070_send_AT_cmd("AT+CREG=2");
 
   // enable EPS (LTE CAT-M/NB-IoT) registration reporting
   sim7070_send_AT_cmd("AT+CEREG=2");
 
-  // select O2 network (only one possible for NB-IoT in Germany with ThingsMobile SIM card)
-  sim7070_send_AT_cmd("AT+COPS=1,2,\"26203\",9");
+  // make settings persistent
+  sim7070_send_AT_cmd("AT&W"); 
 
-  // restart modem
-  sim7070_send_AT_cmd("AT+CFUN=1,1");
-  delay(10000);
+  // deactivate RF connection/soft restart
+  sim7070_send_AT_cmd("AT+CFUN=1");
+
+  // poll until modem is ready again
+  unsigned long t0 = millis();
+  while (millis() - t0 < 10000) {
+      if (sim7070_send_AT_cmd_with_response("AT", "OK", 200)) break;
+      delay(200);
+  }
+  
+  // choose Telekom network 
+  // - "4": if Telekom not available, other network operators are automatically tested
+  // - "8": chooose LTE-M, since in ThingsMobile SIM this is the only network available with Telekom ("9", "NB-IoT")
+  sim7070_send_AT_cmd("AT+COPS=4,2,\"26201\",8");
 
   // wait for recovering network connection (AT+CEREG?)
   sim7070_wait_for_network_conn();
 
-  // check network operator, should return "O2" or "26203"
+  // check network operator
+  // - Telekom: 26201
+  // - Vodafone: 26202
+  // - O2: 26203
   sim7070_send_AT_cmd("AT+COPS?");
 
   // check data readiness, should show "1"
   sim7070_send_AT_cmd("AT+CGATT?");
 
+  // check signal quality
+  // - return value: <rxlev>,<ber>,<rscp>,<ecno>,<rsrq>,<rsrp>
+  //                 GSM ----      UMTS ----     LTE -----
+  // - Reference Signal Received Power in dBm = -140 + rsrp:          very good, if > -90,  very bad if < -120
+  // - Reference Sginal Received Quality in dB = -19.5 + rsrq * 0.5:  good, if > -10,       bad if < -15
+  sim7070_send_AT_cmd("AT+CESQ");
+
   if (_DEBUG) { Serial.printf("Finished SIM7070G modem connection to O2 NB-IoT network.\n\r"); }
+}
+
+
+// sends cmd and waits, until expected is received (true) or timeout is reached (false)
+bool sim7070_send_AT_cmd_with_response(const char* cmd, const char* expected, uint32_t timeout_ms) {
+  while (sim7070.available()) sim7070.read();   // Buffer leeren
+
+  sim7070.println(cmd);
+  if (_DEBUG) { Serial.printf(">> %s\n\r", cmd); }
+
+  String buf;
+  unsigned long t0 = millis();
+  while (millis() - t0 < timeout_ms) {
+    while (sim7070.available()) {
+      buf += (char)sim7070.read();
+      if (buf.indexOf(expected) >= 0) {
+        if (_DEBUG) { Serial.printf("<< %s\n\r", buf.c_str()); }
+        return true;
+      }
+    }
+    delay(5);
+  }
+  if (_DEBUG) { Serial.printf("<< TIMEOUT (%lu ms)\n\r", (unsigned long)timeout_ms); }
+  return false;
 }
 
 

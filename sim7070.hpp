@@ -3,6 +3,7 @@
 
 
 #include "am2320.hpp"
+#include <stdint.h>
 
 
 extern unsigned long long boot_count;
@@ -20,6 +21,7 @@ void sim7070_sent_AT_cmd(const char *cmd, unsigned long timeout_ms) ;
 void sim7070_modem_check();
 int  sim7070_wait_for_network_conn(unsigned long timeout_ms);
 void sim7070_network_config();
+bool sim7070_send_AT_cmd_with_response(const char* cmd, const char* expected, uint32_t timeout_ms); 
 int  sim7070_network_check();
 void sim7070_activate_PDP(); 
 bool sim7070_check_for_active_PDP();
