@@ -58,8 +58,8 @@
 #define HX711_CLOCK                 22
 #define HX711_READ_SAMPLES          11          // should be an odd number!
 #define HX711_LOAD_CELL_TYPE        2
-#define HX711_OFFSET                342964
-#define HX711_SCALE_FACTOR          22.060591
+#define HX711_OFFSET                39757       // from test #22 for #26!
+#define HX711_SCALE_FACTOR          21.732576   // from test #22 for #26!
 
 
 // blink LED count-times
